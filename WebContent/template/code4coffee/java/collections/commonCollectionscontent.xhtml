@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<div id="contenttext">
+			<div style="padding: 10px">
+				<span class="titletext"></span>
+			</div>
+			<div class="bodytext" style="padding: 12px;" align="justify">
+				<strong> Add a List for for collections </strong><br />
+
+
+				<div id="tabs">
+					<ul>
+						<li>
+						
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.showArrayListPage}"
+									value="ARRAYLIST">
+									<f:param name="pageId" value="arrays" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							
+								<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.showVectorPage}"
+									value="VECTORS">
+									<f:param name="pageId" value="vectors" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							
+							<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.showHashMapListPage}"
+									value="HASHMAP">
+									<f:param name="pageId" value="hashMap" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.showHashTablePage}"
+									value="HASHTABLE">
+									<f:param name="pageId" value="hashTable" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+						
+
+					</ul>
+				</div>
+				<br/>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>
+
+

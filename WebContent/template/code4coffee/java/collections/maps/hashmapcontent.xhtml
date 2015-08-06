@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<body onload="prettyPrint()">
+	<h2>HashMap with String Key/Value Pairs</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+
+<code class="language-java">
+
+package com.simple.map;
+
+import java.util.Hashtable;
+
+public class HashMapExplained {
+
+	public static void main(String args[]) {
+
+		Hashtable&lt;String, String&gt; studentMap = new Hashtable&lt;String, String&gt;();
+		studentMap.put("student1", "Junaid");
+		studentMap.put("student2", "Howard");
+		studentMap.put("student3", "sharon");
+		
+ }
+}
+
+</code>
+</pre>
+		</div>
+			<div id="list3">
+			<ul>
+				<li>All map classes implement the Map&lt;&gt; interface.</li>
+				<li>An instance of HashMap has two parameters that affect its performance: initial capacity and load factor.</li>
+				<li>Creates a map with the capacity to store a default number of objects. The default capacity is 16 objects.</li>
+				<li>Methods in HashTable are not synchronized</li>
+				
+			</ul>
+		</div>
+		<p></p>
+	<h2>HashTable with Generics</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+			
+<code class="language-java">
+package com.simple.map;
+
+import java.util.Hashtable;
+
+
+public class HashMapGenerics {
+
+	public static void main(String args[]) {
+
+		Hashtable&lt;String, Student&gt; studentMap = new Hashtable&lt;String, Student&gt;();
+		studentMap.put("student1", new Student("Junaid","java"));
+		studentMap.put("student2", new Student("Howard","IOS"));
+		studentMap.put("student3",  new Student("Sharon","Sabre"));
+		
+		
+		
+	}
+}
+
+</code>
+</pre>
+		</div>
+	<div id="result">
+			<p>
+			To Store Values inside the HashMap we use 
+			Map put(K key, V value)	 <br></br>
+			
+			To Retrieve the values we use Map get(Object Key)<br></br>
+			
+			To remove the objects from the Map we use Map Remove(Object Key)	</p>
+		</div>
+	
+	<div id="result">
+			<p>Student is a JavaBean,Which can be stored into a Vectors.</p>
+		</div>
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+			draggable="false" closable="false">
+			<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+		</p:dialog>
+	<h:form>
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:commandButton value="Download Source" ajax="false"
+					action="#{fileBean.downloadAction(hashMaps)}">
+					<f:param name="filename" value="hashMaps" /> 
+					<p:fileDownload value="#{fileBean.downloadFile}" />
+				</p:commandButton>
+			</h:panelGrid>
+	</h:form>
+	
+	<ui:include src="/template/code4coffee/common/feedbackcontent.xhtml"></ui:include>
+		<script type="text/javascript">
+			function onDownloadStart() {
+				statusDialog.show();
+			}
+			function onDownloadStop() {
+				statusDialog.hide();
+			}
+		</script>
+</body>
+</ui:composition>
+
+

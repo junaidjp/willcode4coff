@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14382778754930" configfile="/willcode4coff/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="default.xhtml" id="pf14382789222021" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14382789222022 pf14382789222023 pf14382789222024 pf14386319667131" path="default.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="javapage.jsf" x="12" y="240" id="pf14382789222025" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14382789222022" path="javapage.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="collectionspage.jsf" x="180" y="264" id="pf14382789222026" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14382789222023" path="collectionspage.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="arraylistpage.jsf" x="324" y="120" id="pf14382789222027" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf14382789222024" path="arraylistpage.jsf"/>
+  <nodes xsi:type="pageflow:PFPage" name="vectorpage.jsf" id="pf14386319667132" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf14386319667131" path="vectorpage.jsf"/>
+  <links id="pf14382789222022" target="pf14382789222025" source="pf14382789222021" outcome="page" fromaction="#{navigationController.showJavaPage}"/>
+  <links id="pf14382789222023" target="pf14382789222026" source="pf14382789222021" outcome="page" fromaction="#{navigationController.showcollectionsPage}"/>
+  <links id="pf14382789222024" target="pf14382789222027" source="pf14382789222021" outcome="page" fromaction="#{navigationController.showArrayListPage}"/>
+  <links id="pf14386319667131" target="pf14386319667132" source="pf14382789222021" outcome="page" fromaction="#{navigationController.showVectorPage}"/>
+</pageflow:Pageflow>

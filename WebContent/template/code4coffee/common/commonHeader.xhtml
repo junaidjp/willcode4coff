@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+	<ui:composition>
+		<h1>WillCode4Coffee</h1>
+		<div id="logo">
+			<div style="margin-top: 70px" class="whitetitle">WillCode4Coffee</div>
+		</div>
+		<div id="topheader">
+			<div align="left" class="bodytext">
+				<br /> <strong>WillCode4Coffee</strong><br /> <br /> <br /> <br />
+				junaid@willcode4coffee.com
+			</div>
+			<div id="toplinks" class="smallgraytext">
+				<a href="#">Home</a> | <a href="#">Sitemap</a> | <a href="#">Contact
+					Us</a>
+			</div>
+		</div>
+		<div id="menu">
+			<div align="right" class="smallwhitetext" style="padding: 9px;">
+
+				<h:form>
+
+					<h:commandLink action="#{navigationController.moveToHomePage}"
+						value="Home">
+						<f:param name="pageId" value="home" />
+					</h:commandLink> | 
+							
+				
+				<h:commandLink action="#{navigationController.showjavaPage}"
+						value="Java">
+						<f:param name="pageId" value="java" />
+					</h:commandLink> | 
+							
+				<h:commandLink action="#{navigationController.showspringpage}"
+						value="Spring">
+						<f:param name="pageId" value="spring" /> | 
+				</h:commandLink>
+
+					<h:commandLink action="#{navigationController.showsjsfpage}"
+						value="JSF">
+						<f:param name="pageId" value="jsf" />
+					</h:commandLink>
+
+					<h:commandLink action="#{navigationController.contactuspage}"
+						value="contactus">
+						<f:param name="pageId" value="contactus" />
+					</h:commandLink>
+				</h:form>
+
+			</div>
+		</div>
+		<!-- 
+		<div id="submenu">
+			<div align="right" class="smallgraytext" style="padding: 9px;">
+			
+				<h:form>
+				<h:commandLink action="#{navigationController.showjavaPage}" value="Java">
+								<f:param name="pageId" value="1" />
+							</h:commandLink> | 
+							
+				<h:commandLink action="#{navigationController.showspringpage}" value="Spring Technologies">
+							<f:param name="pageId" value="spring" />
+				</h:commandLink>
+				</h:form>
+				
+				 | <a href="#">Servlets and JSP</a> | <a
+					href="#">EJB</a> | 	
+				 | 
+							<a href="#">WebServices</a> | <a href="#">Advanced</a>
+			</div>
+			
+		</div>
+		 -->
+	</ui:composition>
+</body>
+</html>
+
+
+
+
+
+
+

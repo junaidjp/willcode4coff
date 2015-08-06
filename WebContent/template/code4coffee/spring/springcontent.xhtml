@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<div id="contenttext">
+			<div style="padding: 10px">
+				<span class="titletext"></span>
+			</div>
+			<div class="bodytext" style="padding: 12px;" align="justify">
+				<strong> Spring Technologies </strong><br />
+
+
+				<div id="tabs">
+					<ul>
+						<li>
+						
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.springcore}"
+									value="springcore">
+									<f:param name="pageId" value="springcore" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							
+								<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.springjdbc}"
+									value="springjdbc">
+									<f:param name="pageId" value="springjdbc" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							
+							<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.springorm}"
+									value="springorm">
+									<f:param name="pageId" value="springorm" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.springjms}"
+									value="springjms">
+									<f:param name="pageId" value="springjms" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							
+						<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.springaop}"
+									value="springaop">
+									<f:param name="pageId" value="springaop" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+							<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.springbatch}"
+									value="springbatch">
+									<f:param name="pageId" value="springbatch" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+							
+								
+							<li>
+							<h:form>
+								<h:commandLink
+									action="#{navigationController.springmvc}"
+									value="springmvc">
+									<f:param name="pageId" value="springmvc" />
+								</h:commandLink>
+							</h:form>
+							<br></br>
+							</li>
+						
+
+					</ul>
+				</div>
+				<br/>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>
+
+

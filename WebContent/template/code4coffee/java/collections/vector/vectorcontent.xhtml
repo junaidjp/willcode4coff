@@ -1,0 +1,196 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<body onload="prettyPrint()">
+
+
+
+		<h2>Vectors with Strings</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+
+<code class="language-java">
+
+package com.simple;
+
+import java.util.Vectors;
+import java.util.List;
+
+
+public class VectorExplained {
+	
+	public static void main(String args[]) { 
+	Vector  vectors = new Vector();
+	vectors.add("Java");
+	vectors.add("jsp");
+	vectors.add("servlets");
+	}
+}
+
+</code>
+</pre>
+		</div>
+
+
+
+		<div id="list3">
+			<ul>
+				<li>Implements an array that can grow dynamically.</li>
+				<li>All methods inside the Vector are Thread Safe.</li>
+				<li>Can be created using 4 constructors</li>
+				<li>The default constructor creates an empty Vector with capacity of 10 objects</li>
+				<li>Objects are stored and retrieved using an index as in a normal array.</li>
+				
+			</ul>
+		</div>
+
+
+	<h2>Vectors with Generics</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+<code class="language-java">
+
+package com.simple;
+
+import java.util.Vectors;
+import java.util.List;
+
+public class VectorsStrings {
+
+public static void main(String[] args) {
+		
+		List&lt;String&gt; Vectors = new Vectors&lt;String&gt;();
+		
+		
+		Vectors.add("Java");
+		Vectors.add("Jsp");
+		Vectors.add("servlets");
+		Vectors.add("jms");
+		//Retrieve the contents of the List
+		for(String value  : Vectors ) { 
+			
+			System.out.println(value);
+		}
+	
+	
+	}
+}
+
+
+</code>
+</pre>
+		</div>
+
+
+		<div id="result">
+			<p>
+				You can also use an iterator to retrieve objects from a Vector.<br></br>
+				The Vector  type is one of two container classes in the java.util
+				package that are synchronized.That is, it is well behaved when
+				concurrently accessed by two or more threads.
+			</p>
+		</div>
+
+
+
+
+		<h2>Vectors with Custom Generics</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+<code class="language-java">
+
+package com.simple;
+
+import java.util.Vectors;
+import java.util.List;
+
+public class VectorsCustom {
+
+public static void main(String[] args) {
+		
+		Vector&lt;Student&gt; Vectors = new Vectors&lt;Student&gt;();
+		Student student1 = new Student("Duncan", "Collections");
+		Vectors.add(student1);
+		Vectors.add(new Student("Ahad","Spring MVC"));
+		Vectors.add(new Student("KrishnaVeni","WEB services"));
+		Vectors.add(new Student("Modi","Struts Framework"));
+		Vectors.add(new Student("Jpasha","JMS "));
+		//linkedList.add(null);
+		
+		
+		for(int i = 0 ; i &lt; Vectors.size(); i ++ ) { 
+			System.out.println(Vectors.get(i).getName());
+		}
+}
+}
+
+
+
+</code>
+</pre>
+		</div>
+
+
+
+		<div id="result">
+			<p>Student is a JavaBean,Which can be stored into a Vectors.
+				You can also store a List inside a Vectors.</p>
+		</div>
+
+
+
+
+
+
+		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+			draggable="false" closable="false">
+			<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+		</p:dialog>
+
+		<h:form>
+
+
+
+
+
+
+
+
+						
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:commandButton value="Download Source" ajax="false"
+					action="#{fileBean.downloadAction(Vectors)}">
+					<f:param name="filename" value="Vectors" /> 
+					<p:fileDownload value="#{fileBean.downloadFile}" />
+				</p:commandButton>
+			</h:panelGrid>
+
+
+		</h:form>
+	
+
+
+
+
+		<ui:include src="/template/code4coffee/common/feedbackcontent.xhtml"></ui:include>
+
+
+
+
+		<script type="text/javascript">
+			function onDownloadStart() {
+				statusDialog.show();
+			}
+			function onDownloadStop() {
+				statusDialog.hide();
+			}
+		</script>
+
+	</body>
+</ui:composition>
+
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<ui:composition>
+		<div id="contenttext">
+			<div style="padding: 10px">
+				<span class="titletext"></span>
+			</div>
+			<div class="bodytext" style="padding: 12px;" align="justify">
+				<strong> Welcome to WillCode4coffee. Learn the best way.
+				</strong><br />
+
+
+				<div id="tabs">
+			
+					<div id="tabs-2">
+						<h2>Collections</h2>
+						<h:form>
+						<p>
+							Learn what are collections,Generics here..	
+							<h:commandLink action="#{navigationController.showcollectionsPage}"
+								value="collections">
+								<f:param name="pageId" value="collections" />
+							</h:commandLink>
+
+						</p>
+						</h:form>
+					</div>
+					<div id="tabs-3">
+						<h2>Threads</h2>
+						<h:form>
+						<p>
+							Learn about Thread Programming 
+							<h:commandLink action="#{navigationController.showThreadssPage}"
+								value="threads">
+								<f:param name="pageId" value="3" />
+							</h:commandLink>
+						</p>
+						</h:form>
+
+					</div>
+
+					<div id="tabs-4">
+						<h2>ExceptionHandling</h2>
+						<h:form>
+						<p>
+							Learn about Exception Handling 
+							<h:commandLink action="#{navigationController.showexceptionsPage}"
+								value="exceptions...">
+								<f:param name="pageId" value="4" />
+							</h:commandLink>
+						</p>
+						</h:form>
+					</div>
+					<div id="tabs-5">
+						<h2>Jdbc</h2>
+						<h:form>
+						<p>
+							Learn Jdbc 
+							<h:commandLink action="#{navigationController.showjdbcPage}"
+								value="jdbc...">
+								<f:param name="pageId" value="5" />
+							</h:commandLink>
+						</p>
+						</h:form>
+
+					</div>
+
+
+				</div>
+	<br/>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>
+
+

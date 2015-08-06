@@ -1,0 +1,228 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<body onload="prettyPrint()">
+
+
+
+		<h2>Arraylist with Strings</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+<code class="language-java">
+
+package com.simple;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class ArrayListExplained {
+	
+	public static void main(String args[]) { 
+	List  arrayList = new ArrayList();
+	arrayList.add("Java");
+	arrayList.add("jsp");
+	arrayList.add("servlets");
+	}
+}
+
+</code>
+</pre>
+		</div>
+
+
+
+		<div id="list3">
+			<ul>
+				<li>Implements an array that can grow dynamically.</li>
+				<li>Similar function to the Vector generic type but is
+					unsynchronized.</li>
+				<li>Is not safe to be used by multiple threads.</li>
+
+			</ul>
+		</div>
+
+
+
+
+
+
+
+		<h2>Arraylist with Generics</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+<code class="language-java">
+
+package com.simple;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListStrings {
+
+public static void main(String[] args) {
+		
+		List&lt;String&gt; arrayList = new ArrayList&lt;String&gt;();
+		
+		
+		arrayList.add("Java");
+		arrayList.add("Jsp");
+		arrayList.add("servlets");
+		arrayList.add("jms");
+		//Retrieve the contents of the List
+		for(String value  : arrayList ) { 
+			
+			System.out.println(value);
+		}
+	
+	
+	}
+}
+
+
+</code>
+</pre>
+		</div>
+
+
+		<div id="result">
+
+			<p>
+				You can restrict what kinda elements you can put into your arrayList
+				by using Generics. The line above one line 6 above , We Will make
+				sure that only String elements are inserted inside this List. <br></br>
+				One more thing to notice is how we are using a Enhanced for loop for
+				iteration.It is used with collections and makes the iteration
+				easier.More on this can be found on Iterations tutorial.
+
+			</p>
+		</div>
+
+
+
+
+		<h2>Arraylist with Custom Generics</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+<code class="language-java">
+
+package com.simple;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListCustom {
+
+public static void main(String[] args) {
+		
+		List&lt;Student&gt; arrayList = new ArrayList&lt;Student&gt;();
+		Student student1 = new Student("Duncan", "Collections");
+		arrayList.add(student1);
+		arrayList.add(new Student("Ahad","Spring MVC"));
+		arrayList.add(new Student("KrishnaVeni","WEB services"));
+		arrayList.add(new Student("Modi","Struts Framework"));
+		arrayList.add(new Student("Jpasha","JMS "));
+		//linkedList.add(null);
+		
+		
+		for(int i = 0 ; i &lt; arrayList.size(); i ++ ) { 
+			System.out.println(arrayList.get(i).getName());
+		}
+}
+}
+
+</code>
+</pre>
+		</div>
+
+
+
+		<div id="result">
+			<p>Student is a JavaBean,Which can be stored into a ArrayList.
+				You can also store a List inside a ArrayList.</p>
+		</div>
+
+
+
+
+
+
+		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+			draggable="false" closable="false">
+			<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+		</p:dialog>
+
+		<h:form>
+
+
+
+
+
+
+
+
+						
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:commandButton value="Download Source" ajax="false"
+					action="#{fileBean.downloadAction(arraylist)}">
+					<f:param name="filename" value="arraylist" /> 
+					<p:fileDownload value="#{fileBean.downloadFile}" />
+				</p:commandButton>
+			</h:panelGrid>
+
+
+		</h:form>
+		<!-- 
+		
+		
+						
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:commandButton value="Download Source" ajax="false"
+					actionListener="#{fileBean.downloadAction(arraylist)}">
+					<f:setPropertyActionListener value="arraylist" target="#{fileBean.id}" /> 
+					<p:fileDownload value="#{fileBean.downloadFile}" />
+				</p:commandButton>
+			</h:panelGrid>
+		
+		
+<h:form>
+  <h:panelGrid columns="2" cellpadding="5">
+            <h:outputText value="Download and Monitor" />
+            <p:panel header="With Monitoring">
+                <h:commandLink onclick="PrimeFaces.monitorDownload(onDownloadStart,onDownloadStop)">
+                  <p:graphicImage library="images" name="fileDownload.png" />
+                   <p:fileDownload value="#{fileBean.userPic}" />
+                </h:commandLink>
+            </p:panel>
+
+        </h:panelGrid>
+
+</h:form>
+
+ -->
+
+
+
+
+		<ui:include src="/template/code4coffee/common/feedbackcontent.xhtml"></ui:include>
+
+
+
+
+		<script type="text/javascript">
+			function onDownloadStart() {
+				statusDialog.show();
+			}
+			function onDownloadStop() {
+				statusDialog.hide();
+			}
+		</script>
+
+	</body>
+</ui:composition>
+
+

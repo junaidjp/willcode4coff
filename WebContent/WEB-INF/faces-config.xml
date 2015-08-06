@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+	<managed-bean>
+		<managed-bean-name>navigationController</managed-bean-name>
+		<managed-bean-class>com.willcode4coffee.NavigationController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>filecontroller</managed-bean-name>
+		<managed-bean-class>com.willcode4coffee.FileController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<navigation-rule>
+
+		<from-view-id>default.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{navigationController.showJavaPage}</from-action>
+			<from-outcome>page</from-outcome>
+			<to-view-id>javapage.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{navigationController.showcollectionsPage}</from-action>
+			<from-outcome>page</from-outcome>
+			<to-view-id>collectionspage.jsf</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{navigationController.showArrayListPage}</from-action>
+			<from-outcome>page</from-outcome>
+			<to-view-id>arraylistpage.jsf</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{navigationController.showVectorPage}</from-action>
+			<from-outcome>page</from-outcome>
+			<to-view-id>vectorpage.jsf</to-view-id>
+		</navigation-case>
+
+
+	</navigation-rule>
+
+
+</faces-config>
