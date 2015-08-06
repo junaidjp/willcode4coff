@@ -19,7 +19,7 @@
 
 		<from-view-id>default.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{navigationController.showJavaPage}</from-action>
+			<from-action>#{navigationController.showjavaPage}</from-action>
 			<from-outcome>page</from-outcome>
 			<to-view-id>javapage.jsf</to-view-id>
 		</navigation-case>

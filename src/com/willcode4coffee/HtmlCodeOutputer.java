@@ -12,7 +12,7 @@ public class HtmlCodeOutputer {
 	public static void main(String args[]) throws IOException { 
 		String program = readFromFile();
 		System.out.println(HtmlManipulator.htmlspecialchars_encode_ENT_NOQUOTES(program));
-		
+	
 		
 		
 	}
