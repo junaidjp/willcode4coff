@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <body>
-<div id="main">
-	<h2>Leave a FeedBack</h2>
-	<div id="form_sample">
-	
-		<h:form method='post'>
-			Name: <h:inputText> type='text' name='name' id='name'> </h:inputText><br/> 
-			Email: <h:inputText type='text' name='email' id='email' ></h:inputText><br/> 
-			Comment:<br /> <h:inputTextarea name='comment' id='comment'></h:inputTextarea>
-			<br /> <input type='hidden' name='articleid' id='articleid' value="#" /><input type='submit' value='Submit' />
-		</h:form>
+	<div id="main">
+		
+		<!-- 
+		<h2>Leave a FeedBack</h2>
+		<div id="form_sample">
+
+			<h:form method='post' id="contactForm1">
+			Name: <h:inputText type="text" name="name" id="name">
+				</h:inputText>
+				<br /> 
+			Email: <h:inputText type="text" name="email" id="email"></h:inputText>
+				<br /> 
+			Comment:<br />
+				<h:inputTextarea name="comment" id="comments"
+					value="#{userData.comments}"></h:inputTextarea>
+				<br />
+				<input type='hidden' name='articleid' id='articleid' value="#" />
+				<h:commandButton value="submit">
+					<f:ajax execute="comments" render="outputMessage" />
+				</h:commandButton>
+
+			</h:form>
+		</div>
 	</div>
+
+	<div id="commentsSection">
+		<h:dataTable>
+			<h:columnheaderText ="date" sortBy="#{userData.date}">
+			<h:outputText value="#{userData.date}" />
+			</h:column>
+
+		</h:dataTable>
+
+		<h:outputText id="outputMessage"
+			value="#{userData.welcomeMessage !=null ?
+   userData.welcomeMessage:''}" />
+
+	
+
+ -->
 </div>
 </body>
 </html>

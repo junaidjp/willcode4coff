@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+
+
+
+	<h2>Application Context DAO Hibernate File</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"&gt;
+
+
+
+&lt;bean id="bankofVizDao" class="com.junaid.training.springhibernate.HibernateBankOfVizDaoImpl"&gt;
+&lt;property name="hibernateTemplate" ref="hibernateTemplate" /&gt;
+&lt;/bean&gt;
+
+
+
+&lt;bean id="dataSource"
+class="org.springframework.jdbc.datasource.DriverManagerDataSource"&gt;
+&lt;property name="driverClassName"
+value="com.mysql.jdbc.Driver" /&gt;
+&lt;property name="url"
+value="jdbc:mysql://localhost:3306/bankofviz" /&gt;
+&lt;property name="username" value="root" /&gt;
+&lt;property name="password" value="junaid123" /&gt;
+&lt;/bean&gt;
+
+
+
+&lt;bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"&gt;
+  &lt;property name="dataSource" ref="dataSource" /&gt;
+  &lt;property name="mappingResources"&gt;
+   &lt;list&gt;
+    &lt;value&gt;users.hbm.xml&lt;/value&gt;
+   &lt;/list&gt;
+  &lt;/property&gt;
+
+  &lt;property name="hibernateProperties"&gt;
+   &lt;props&gt;
+    &lt;prop key="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/prop&gt;
+    &lt;prop key="hibernate.show_sql"&gt;true&lt;/prop&gt;
+    &lt;prop key="hibernate.generate_statistics"&gt;true&lt;/prop&gt;
+   &lt;/props&gt;
+  &lt;/property&gt;
+ &lt;/bean&gt;
+ &lt;bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"&gt;
+  &lt;property name="sessionFactory" ref="sessionFactory" /&gt;
+ &lt;/bean&gt;
+
+
+
+&lt;/beans&gt;
+
+
+
+
+
+</code>
+</pre>
+
+	</div>
+
+
+
+
+	<h2>What is JdbcTemplate ?</h2>
+
+	<div id="result">
+
+		<p>
+			Spring Ships with Custom templates to make development easier.
+			JDBCTemplate is a Spring Framework class that is used to query the
+			DB. JdBCTemplate needs to be injected the DataSource information.(In
+			our case MySQL). <br></br>We can then inject the JdbcTemplate into
+			our own classes.
+
+		</p>
+	</div>
+
+
+
+
+
+	<h2>Spring Hibernate Implementation Class</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+
+
+package com.junaid.training.springhibernate;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.bov.dto.User;
+import com.junaid.training.springhibernate.BankOfVizDao;
+
+public class SpringHibernateExplained {
+
+	
+	public static void main(String args[]){
+		
+		
+		ApplicationContext daoContext =
+			new ClassPathXmlApplicationContext("applicationContext-orm.xml");
+		BankOfVizDao hibernateDao=(BankOfVizDao)daoContext.getBean("bankofVizDao");
+		//Populate the user here 
+		User user=new User();
+		user.setId(9);
+		user.setUserName("Anwar");
+		user.setPassword("training");
+		hibernateDao.insert(user);
+		
+	System.out.println("Retrieving user from JdbcTemplate " +hibernateDao.findUserById(1).getUserName());
+		
+
+	}
+}
+
+
+</code>
+</pre>
+	</div>
+
+
+
+
+
+	<div id="result">
+
+		<p>
+			We load the Application context file and retrieve the bean of
+			interest. ( In our case sinanDao). We then create a User Object and
+			insert into DB using the JdbcDao class. <br></br> JdbcDao uses the
+			JdbcTemplate that already has a dataSource injected into it to query
+			the DB for us.
+
+		</p>
+	</div>
+	<div id="result">
+		<h2>User is a Simple POJO/Java Bean</h2>
+		<p></p>
+	</div>
+
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+package com.bov.dto;
+/**
+ * 
+ * @author jpasha
+ *
+ */
+public class User {
+	
+   public int id;
+	public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getUserName() {
+	return userName;
+}
+public void setUserName(String userName) {
+	this.userName = userName;
+}
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
+}
+	public String userName;
+	public String password;
+	
+
+}
+
+	
+</code>
+</pre>
+
+	</div>
+
+
+<h2>Spring Hibernate DataAccess Class</h2>
+<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+package com.junaid.training.springhibernate;
+
+import java.sql.SQLException;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import com.bov.dto.User;
+
+public class HibernateBankOfVizDaoImpl implements BankOfVizDao{
+
+	
+	
+	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
+		this.hibernateTemplate = hibernateTemplate;
+	}
+
+	private HibernateTemplate hibernateTemplate;
+	
+	public HibernateBankOfVizDaoImpl() {
+		System.out.println("init transaction Dao");
+	}
+	
+	public User findUserById(final int id) {
+
+		HibernateCallback callback = new HibernateCallback() {
+			   public Object doInHibernate(Session session) throws HibernateException, SQLException {
+			    return session.load(User.class, id);
+			   }
+			  };
+			return (User) hibernateTemplate.execute(callback);
+			}
+	
+	@Override
+	public void insert(final User usr) {
+		 HibernateCallback callback = new HibernateCallback() {
+			   public Object doInHibernate(Session session) throws HibernateException, SQLException {
+			   // session.saveOrUpdate(usr); // If you are updating use this method 
+			   session.save(usr);//If inserting use this method 
+			    return null;
+			   }
+			  };
+			  hibernateTemplate.execute(callback);
+			  
+			 }
+
+
+	public void deleteUser(final User usr) {
+		
+		 HibernateCallback callback = new HibernateCallback() {
+			   public Object doInHibernate(Session session) throws HibernateException, SQLException {
+			   // session.saveOrUpdate(usr); // If you are updating use this method 
+			   session.delete(usr);//If inserting use this method 
+			    return null;
+			   }
+			  };
+			  hibernateTemplate.execute(callback);
+			  
+			 }
+}
+</code>
+</pre>
+</div>
+
+	<div id="result">
+
+		<p>There are 2 methods above.insert will insert the values in the
+			DB using HibernateTemplate and delete will delete a single User.</p>
+	</div>
+
+
+
+<div id="imagesnap">
+<h2>These are some of the Libraries you need in classPath</h2>
+    <p:graphicImage library="images/spring/hibernate" name="1.png" alt="Some of the Jars you need" title="Some of the Jars you need"/>
+</div>
+
+
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+		draggable="false" closable="false">
+		<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+	</p:dialog>
+
+	<h:form>
+
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:commandButton value="Download Source" ajax="false"
+				action="#{fileBean.downloadAction(springhibernate)}">
+				<f:param name="filename" value="springhibernate" />
+				<p:fileDownload value="#{fileBean.downloadFile}" />
+			</p:commandButton>
+		</h:panelGrid>
+
+
+	</h:form>
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+
+
+
+
+</body>
+
+</html>
+
+

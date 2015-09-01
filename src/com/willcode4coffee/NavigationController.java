@@ -1,7 +1,6 @@
 package com.willcode4coffee;
 
 import java.io.Serializable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -15,10 +14,58 @@ public class NavigationController implements Serializable {
 	@ManagedProperty(value = "#{param.pageId}")
 	private String pageId;
 
+	public String showspringAopconcepts() { 
+		return "springaoppage";
+	}
+	public String showspringjms() { 
+		return "springjmspage";
+	}
 	
-	public String showjavaPage() { 
+	
+	public String showspringmongoDb() {
+		return "springmongoDbpage";
+	}
+
+	public String showjdomongodb() {
+		return "jdomongodbpage";
+	}
+
+	public String showjdoreaddb() {
+		return "jdoreaddbpage";
+	}
+
+	public String showjdocreateschema() {
+		return "jdocreateschemapage";
+	}
+
+	public String showjdoconcepts() {
+		return "jdoconceptspage";
+	}
+
+	public String showjdowritedb() {
+		return "jdowritedbpage";
+	}
+
+	public String showjdopage() {
+		return "jdopage";
+	}
+
+	public String showspringorm() {
+		return "springormpage";
+	}
+
+	public String showspringjdbc() {
+		return "springjdbcpage";
+	}
+
+	public String showspringcore() {
+		return "springcorepage";
+	}
+
+	public String showjavaPage() {
 		return "javapage";
 	}
+
 	public String showspringpage() {
 		return "springpage";
 	}
@@ -34,7 +81,7 @@ public class NavigationController implements Serializable {
 	public String showArrayListPage() {
 		return "arraylistpage";
 	}
-	
+
 	public String showcollectionsPage() {
 		return "collectionspage";
 	}
@@ -44,14 +91,13 @@ public class NavigationController implements Serializable {
 	}
 
 	public String showPage() {
+
 		if (pageId == null) {
 			return "home";
-			
-		} 
-		else if (pageId.equals("showjavaPage")) {
+
+		} else if (pageId.equals("showjavaPage")) {
 			return "javapage";
-		}
-		else if (pageId.equals("showcollectionsPage")) {
+		} else if (pageId.equals("showcollectionsPage")) {
 			return "collectionspage";
 		} else if (pageId.equals("showArrayListPage")) {
 			return "arraylistpage";
@@ -61,7 +107,37 @@ public class NavigationController implements Serializable {
 			return "hashmappage";
 		} else if (pageId.equals("showSpringpage")) {
 			return "springpage";
-		} else {
+		} else if (pageId.equals("showspringjdbc")) {
+			return "springjdbcpage";
+		} else if (pageId.equals("showspringorm")) {
+			return "springormpage";
+		}
+
+		else if (pageId.equals("showjdopage")) {
+			return "jdopage";
+		} else if (pageId.equals("showjdoconcepts")) {
+			return "jdoconceptspage";
+		}
+
+		else if (pageId.equals("showjdocreateschema")) {
+			return "jdocreateschemapage";
+		} else if (pageId.equals("showjdowritedb")) {
+			return "jdowritedbpage";
+		} else if (pageId.equals("showjdoreaddb")) {
+				return "jdoreaddbpage";
+		} else if (pageId.equals("showspringmongoDb")) {
+
+			return "springmongoDbpage";
+		}
+		else if (pageId.equals("showspringjms")) { 
+			return "springjmspage";
+		}
+		else if (pageId.equals("showspringAopconcepts")) { 
+			return "springaoppage";
+		}
+
+		
+		else {
 			return "home";
 		}
 	}

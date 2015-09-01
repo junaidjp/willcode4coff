@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+
+	<h2>What is JDO ( Java Data Objects)</h2>
+
+	<div id="result">
+
+		<p>
+
+			(JDO) API is a standard interface-based Java model abstraction of
+			persistence, developed under the auspices of the Java Community
+			Process. <br></br> The original JDO 1.0 is Java Specification Request
+			12 ( JSR 12), <br></br> and the current JDO 2.0 is Java Specification
+			Request 243 ( JSR 243). <br></br> Beginning with JDO 2.0, the
+			development of the API and the Technology Compatibility Kit (TCK)
+			takes place within the Apache JDO open-source project. If you are an
+			application programmer, you can use JDO technology to directly store
+			your Java domain model instances into the persistent store
+			(database). <br></br>Alternatives to JDO include direct file I/O,
+			serialization, JDBC, Enterprise JavaBeans (EJB), Bean-Managed
+			Persistence (BMP) or Container-Managed Persistence (CMP) entity
+			beans, and the Java Persistence API. <br></br> The Apache JDO project
+			is focused on building the JDO API and the TCK for compatibility
+			testing of JDO implementations. Commercial and open-source
+			implementations of JDO, providing the APIs used by application
+			developers and their customers, are available for relational
+			databases, object databases, and file systems. <b>Benefits of
+				Using JDO for Application Programming </b> <br></br> Ease of use:
+			Application programmers can focus on their domain object model and
+			leave the details of persistence (field-by-field storage of objects)
+			to the JDO implementation. <br></br> Portability: Applications
+			written with the JDO API can be run on multiple implementations
+			without recompiling or changing source code. Metadata, which
+			describes persistence behavior external to the Java source code
+			including most commonly used features of O/R mapping, is highly
+			portable. <br></br> Database independence: Applications written with
+			the JDO API are independent of the underlying database. JDO
+			implementations support many different kinds of transactional data
+			stores, including relational and object databases, XML, flat files,
+			and others. <br></br> High performance: Application programmers
+			delegate the details of persistence to the JDO implementation, which
+			can optimize data access patterns for optimal performance. <br></br>
+			Integration with EJB: Applications can take advantage of EJB features
+			such as remote message processing, automatic distributed transaction
+			coordination, and security, using the same domain object models
+			throughout the enterprise. <br></br>
+		</p>
+
+		<b>Note : </b> The above text is taken from Oracle reference.
+	</div>
+
+	<p></p>
+
+	Continue to
+
+	<h:form>
+		<p:commandLink id="JDO-CreateSchema"
+			action="#{navigationController.showjdocreateschema}" ajax="false"
+			value="Jdo-createschema">
+			<h:outputText value="Jdo-createschema" />
+		</p:commandLink>
+
+	</h:form>
+
+
+
+
+
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+
+
+
+
+</body>
+
+</html>
+
+

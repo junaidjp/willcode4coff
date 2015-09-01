@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+		<h:outputStylesheet name="style.css" library="css" />
+			<h:outputStylesheet name="prettify.css" library="css" />
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<h:outputScript library="js" name="jquery-ui.js" />
+		<h:outputScript library="js" name="jquery-1.10.2.js" />
+		<h:outputScript library="js" name="prettify.js" />
+
+
+
+<script type="text/javascript">var $ = jQuery.noConflict(true);</script>
+<title>WillCode4Coffee</title>
+</h:head>
+    
+    <h:body>
+
+	<div id="page" align="center">
+		
+       <div id="content" style="width:800px">
+		
+		<div>
+			<ui:insert name="header" >
+				<ui:include src="/template/code4coffee/common/commonHeader.xhtml" />
+			</ui:insert>
+	    </div>
+	    
+	    
+	    
+	    
+	    <div id="contenttext">
+		   	<ui:insert name="content" >
+		   		<ui:include src="/template/code4coffee/latest/jdo/jdoqueryingdatabase/jdoqueryingdatabase.xhtml" />
+		   	</ui:insert>
+	    </div>
+		    
+		    
+		   <div id="leftpanel">
+		   <ui:insert name="revenue">
+		   <ui:insert src="/template/code4coffee/common/revenue.xhtml"></ui:insert>
+		   
+		   </ui:insert>
+		   </div> 
+		    
+		    
+		    
+		    
+		    
+	  <div id="footer" class="smallgraytext">
+	    	<ui:insert name="footer" >
+	    		<ui:include src="/template/code4coffee/common/commonFooter.xhtml" />
+	    	</ui:insert>
+    	</div>
+    	
+    </div> <!--  End content -->
+    </div> <!--  End page -->
+    </h:body>
+
+</html>

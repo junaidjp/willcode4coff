@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+
+
+
+	<h2>Welcome to part 4 of JDO Series</h2>
+	
+	
+	<div id="result">
+
+		<p>
+			The Tutorial will walk you through how to Read values from Tables that we inserted in Tutorial 2 
+			 using JDO technology and DataNuclues APIs.
+		</p>
+	</div>
+
+	
+	
+	<h2>Things we need </h2>
+	
+	
+<ul type="circle">
+ <li>Maven</li>
+ <li>Eclipse</li>
+ <li>MySQL WorkBench(Optional)</li>
+ <li>Patience</li>
+ 
+</ul>
+
+ <h2>Steps to achieve our Goal</h2>
+	<ul type="circle">
+		<li>Step 1 : Create a Eclipse Maven Project</li>
+		<li>Step 2 : Load all JDO, DataNucleus Jars using Mavens pom.xml</li>
+		<li>Step 3 : Write the Java Classes</li>
+		<li>Step 4 : Define persistence.xml</li>
+		<li>Step 5 : Compile using Maven</li>
+		<li>Step 6 : Enhance this classes using DataNuclues maven plugin</li>
+		<li>Step 7 : Execute the Main Program that Reads from the  DB.</li>
+	</ul>
+
+
+
+
+
+<div id="imagesnap">
+<h2>Create a Eclipse Maven Project</h2>
+    <p:graphicImage library="images/jdo/createschema" name="projectcreation1.png" alt="MavenProjectcreations" title="Some of the Jars you need"/>
+	 <p:graphicImage library="images/jdo/createschema" name="projectcreation2.png" alt="MavenProjectcreations" title="Some of the Jars you need"/>
+
+</div>
+
+
+
+
+
+
+
+<h2>Step 3 : Load all JDO, DataNucleus Jars using Mavens pom.xml</h2>
+  <div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;groupId&gt;com.willcode4cofffe.jdo&lt;/groupId&gt;
+  &lt;artifactId&gt;jdocreateschema&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+
+  &lt;name&gt;jdocreateschema&lt;/name&gt;
+  &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+
+  &lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    
+    
+     &lt;dependency&gt;
+            &lt;groupId&gt;org.datanucleus&lt;/groupId&gt;
+            &lt;artifactId&gt;datanucleus-core&lt;/artifactId&gt;
+            &lt;version&gt;[4.0.0-release, 4.9)&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.datanucleus&lt;/groupId&gt;
+            &lt;scope&gt;compile&lt;/scope&gt;
+            &lt;artifactId&gt;datanucleus-api-jdo&lt;/artifactId&gt;
+            &lt;version&gt;[4.0.0-release, 4.1.99)&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.jdo&lt;/groupId&gt;
+            &lt;artifactId&gt;jdo-api&lt;/artifactId&gt;
+            &lt;version&gt;3.1&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;log4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+            &lt;version&gt;[1.2, 1.3)&lt;/version&gt;
+        &lt;/dependency&gt;
+    
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.datanucleus&lt;/groupId&gt;
+            &lt;artifactId&gt;datanucleus-rdbms&lt;/artifactId&gt;
+            &lt;version&gt;[4.0.0-release, 4.9)&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+               
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.17&lt;/version&gt;
+        &lt;/dependency&gt;
+       &lt;/dependencies&gt;
+         &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.5&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;filesets&gt;
+                        &lt;fileset&gt;
+                            &lt;directory&gt;${basedir}&lt;/directory&gt;
+                            &lt;includes&gt;
+                                &lt;include&gt;*.log&lt;/include&gt;
+                                &lt;include&gt;tutorial.ods&lt;/include&gt;
+                                &lt;include&gt;tutorial.xls&lt;/include&gt;
+                            &lt;/includes&gt;
+                        &lt;/fileset&gt;
+                        &lt;fileset&gt;
+                            &lt;directory&gt;${basedir}/testDB&lt;/directory&gt;
+                        &lt;/fileset&gt;
+                    &lt;/filesets&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.3.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.datanucleus&lt;/groupId&gt;
+                &lt;artifactId&gt;datanucleus-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;4.0.0-release&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;verbose&gt;true&lt;/verbose&gt;
+                    &lt;api&gt;JDO&lt;/api&gt;
+                    &lt;persistenceUnitName&gt;studentRegistry&lt;/persistenceUnitName&gt;
+                    &lt;log4jConfiguration&gt;src/main/resources/log4j.properties&lt;/log4jConfiguration&gt;
+                    &lt;verbose&gt;false&lt;/verbose&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;phase&gt;compile&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;enhance&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.1&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;mainClass&gt;com.willcode4cofffe.jdo.jdocreateschema.JdoTest&lt;/mainClass&gt;
+                    &lt;systemProperties&gt;
+                        &lt;systemProperty&gt;
+                            &lt;key&gt;log4j.configuration&lt;/key&gt;
+                            &lt;value&gt;file:src/main/resources/log4j.properties&lt;/value&gt;
+                        &lt;/systemProperty&gt;
+                    &lt;/systemProperties&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.2.1&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;descriptors&gt;
+                        &lt;descriptor&gt;${basedir}/assembly.xml&lt;/descriptor&gt;
+                    &lt;/descriptors&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+        
+        
+&lt;/project&gt;
+</code>
+</pre>
+
+	</div>
+
+
+
+<h2>Step 4 : Write the Java Classes</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+package com.willcode4cofffe.jdo;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+
+
+
+@PersistenceCapable
+public class Person 
+{
+    @PrimaryKey
+    @Persistent(valueStrategy=IdGeneratorStrategy.NATIVE)
+    protected long id;
+    
+
+    public Person(long id, String name, String address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+	}
+
+
+	Set&lt;Student&gt; students = new HashSet&lt;Student&gt;();
+
+
+	public Set&lt;Student&gt; getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set&lt;Student&gt; students) {
+		this.students = students;
+	}
+    
+    
+	protected String name=null;
+
+     public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	protected String address;
+}
+
+
+</code>
+</pre>
+	</div>
+
+
+
+
+
+<h2>Step 4 : Write the Java Classes</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+
+
+package com.willcode4cofffe.jdo;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.PrimaryKey;
+
+/**
+ * Definition of an Inventory of products.
+ */
+@PersistenceCapable
+public class Student
+{
+    public Student(String qualification, String specializations) {
+		super();
+		this.qualification = qualification;
+		this.specializations = specializations;
+	}
+
+	@PrimaryKey
+    protected String qualification=null;
+    
+    protected String specializations = null;
+
+	public String getQualification() {
+		return qualification;
+	}
+
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
+	}
+
+	public String getSpecializations() {
+		return specializations;
+	}
+
+	public void setSpecializations(String specializations) {
+		this.specializations = specializations;
+	}
+
+    
+}
+</code>
+</pre>
+	</div>
+
+
+
+
+
+	<div id="result">
+
+		<p>
+			The Annotation @PersistentCapable means that this Java Object is capable of being persisted.
+	</p>
+	</div>
+	
+	
+	
+	<h2>Step 5 : Define persistence.xml under src/main/resources/META-INF</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0"&gt;
+
+	
+	&lt;persistence-unit name="studentRegistry"&gt;
+		&lt;class&gt;com.willcode4cofffe.jdo.Person&lt;/class&gt;
+		&lt;class&gt;com.willcode4cofffe.jdo.Student&lt;/class&gt;
+		&lt;exclude-unlisted-classes /&gt;
+		&lt;properties&gt;
+
+			&lt;property name="datanucleus.ConnectionDriverName" value="com.mysql.jdbc.Driver" /&gt;
+			&lt;property name="datanucleus.ConnectionURL" value="jdbc:mysql://localhost:3306/studentregistry2" /&gt;
+			&lt;property name="datanucleus.ConnectionUserName" value="root" /&gt;
+			&lt;property name="datanucleus.ConnectionPassword" value="junaid123" /&gt;
+			&lt;property name="datanucleus.schema.autoCreateAll" value="true" /&gt;
+		&lt;/properties&gt;
+	&lt;/persistence-unit&gt;
+
+&lt;/persistence&gt;
+
+
+</code>
+</pre>
+	</div>
+
+	
+	
+	
+	
+	<div id="imagesnap">
+<h2>Step 6 : Compile using Maven</h2>
+    <p:graphicImage library="images/jdo/createschema" name="compile.png" alt="create a schema"/>
+</div>
+	
+
+	
+		
+	
+	<div id="imagesnap">
+<h2>Step 7 : Enhance this classes using DataNuclues maven plugin </h2>
+    <p:graphicImage library="images/jdo/createschema" name="enhance.png" alt="Enhance the Classes"/>
+</div>
+	
+	<div id="result">
+
+		<p>This is a important Step because I was struggling for hours to figure out why the Schema was not being created.</p>
+		<br></br>If you do not enhance the classes. DataNucleus wont recognize how the schema has to be created.
+	</div>
+	
+	
+	<div id="imagesnap">
+<h2>Step 8 : Execute the Program</h2>
+    <p:graphicImage library="images/jdo/writedb" name="runtheprogram.png" alt="Enhance the Classes"/>
+</div>
+	
+	
+	
+	
+	<h2>Step 8 : This is the program  that inserts the values in DB</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+package com.willcode4cofffe.jdo;
+
+
+
+import java.util.Iterator;
+import java.util.List;
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
+
+
+
+public class JDOReadDBTest {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static void main(String args[]) {
+
+		PersistenceManagerFactory pmfs = JDOHelper
+				.getPersistenceManagerFactory("studentRegistry");
+		PersistenceManager pm = pmfs.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery("SELECT FROM " + Person.class.getName());
+			List&lt;Person&gt; persons = (List&lt;Person&gt;) q.execute();
+			Iterator&lt;Person&gt; iter = persons.iterator();
+			while (iter.hasNext()) {
+				Person p = iter.next();
+				System.out.println(p.getName());
+				Iterator itr = p.getStudents().iterator();
+				while (itr.hasNext()) {
+					Student student = (Student) itr.next();
+					System.out.println("Specialization is "
+							+ student.getQualification());
+					System.out.println("Specialization is "
+							+ student.getSpecializations());
+					}
+}
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+	}
+}
+
+
+	
+	</code>
+	</pre>
+	</div>
+	
+	
+	
+
+<div id="imagesnap">
+<h2>Run the program using Maven</h2>
+    <p:graphicImage library="images/jdo/writedb" name="runtheprogram.png" alt="Some of the Jars you need" title="Some of the Jars you need"/>
+</div>
+
+
+
+	
+
+<div id="imagesnap">
+<h2>Finally check if the rows were inserted in DB</h2>
+    <p:graphicImage library="images/jdo/writedb" name="dbcreatedcheck.png" alt="Some of the Jars you need" title="Some of the Jars you need"/>
+</div>
+
+
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+		draggable="false" closable="false">
+		<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+	</p:dialog>
+
+	<h:form>
+
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:commandButton value="Download Source" ajax="false"
+				action="#{fileBean.downloadAction(jdowritechema)}">
+				<f:param name="filename" value="jdowritechema" />
+				<p:fileDownload value="#{fileBean.downloadFile}" />
+			</p:commandButton>
+		</h:panelGrid>
+
+
+	</h:form>
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+</body>
+
+</html>
+
+

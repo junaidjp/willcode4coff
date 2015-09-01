@@ -3,17 +3,35 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
+	
+	
+	<lifecycle>
+   <phase-listener>
+     com.willcode4coffee.UACompatibleHeaderPhaseListener
+   </phase-listener>
+</lifecycle>
+	
 	<managed-bean>
 		<managed-bean-name>navigationController</managed-bean-name>
 		<managed-bean-class>com.willcode4coffee.NavigationController</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
-
-	<managed-bean>
-		<managed-bean-name>filecontroller</managed-bean-name>
-		<managed-bean-class>com.willcode4coffee.FileController</managed-bean-class>
+	
+		<managed-bean>
+		<managed-bean-name>pageCreateView</managed-bean-name>
+		<managed-bean-class>com.util.PageCreateView</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	
+	
+		<managed-bean>
+		<managed-bean-name>checkboxView</managed-bean-name>
+		<managed-bean-class>com.willcode4coffee.CheckBoxView</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+
+
 
 	<navigation-rule>
 

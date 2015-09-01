@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+<p></p><h2>Welcome to Spring JMS, In this tutorial we will use Active MQ and produce a message on a  Queue. </h2>
+<div id="result">
+<p>Basically for a spring JMS to work we need a few components. 
+An Active MQ connectionFactory , A queue or a Topic on this MQ server , A JMSTemplate on our side. 
+<p>What is JMS Template ? </p> 
+
+The classes offer various convenience methods for the sending of messages, consuming a message synchronously, and exposing the JMS session and message producer to the user.
+
+<p></p>
+There are two variants of the functionality offered by the JmsTemplate: the JmsTemplate uses the JMS 1.1 API, and the subclass JmsTemplate102 uses the JMS 1.0.2 API. 
+
+
+<p></p>
+As per Spring website 
+
+JMS 1.0.2 defined two types of messaging domains, point-to-point (Queues) and publish/subscribe (Topics). The 1.0.2 API reflected these two messaging domains by providing a parallel class hierarchy for each domain. As a result, a client application became domain specific in its use of the JMS API. JMS 1.1 introduced the concept of domain unification that minimized both the functional differences and client API differences between the two domains. As an example of a functional difference that was removed, if you use a JMS 1.1 provider you can transactionally consume a message from one domain and produce a message on the other using the same Session.
+
+
+So Basically JmsTemplate is a Spring Helper class that helps us talk to MQ Engine. 
+Our Job is to define the connectionFactory for ActiveMQ and inject that factory to JMSTemplate. We will see that shortly in the example below.
+</p></div>
+<h2>Things we need </h2>
+<ul type="circle">
+<li>Eclipse</li>
+<li>Maven</li>
+<li>Spring</li>
+<li>Active MQ 5.10.0</li>
+</ul><p></p>
+
+
+
+<p></p><h2>Steps to achieve our Goal</h2>
+<ul type="circle">
+<li> Step 1 : Create a Maven Project</li>
+<li> Step 2 : Load all Spring JMS dependencies</li>
+<li> Step 3 :  Check if ActiveMQ is Up and running </li>
+<li> Step 4 :  Create a Queue on the ActiveMQ</li>
+<li> Step 5 :  Write Java classes </li>
+<li> Step 6 :  Define the Spring Context file </li>
+<li> Step 7 :  Test the application </li>
+<li> Step 8 :  Check if the message was posted on the Queue.</li>
+
+</ul><p></p>
+
+
+
+
+<p></p>
+<h2>Write a Java Object</h2>
+<div style="border: 1px solid black;"><pre class="prettyprint"><code class="language-java">
+package com.willcode4coffee.springjms.dto;
+
+public class Stock {
+	int stockId;
+	String stockName;
+	String stockDescription;
+	int stockQuantity;
+	double startingPrice;
+	double endingPrice;
+	
+	
+	public Stock(int stockId, String stockName, String stockDescription,
+			int stockQuantity, double startingPrice, double endingPrice
+			) {
+		super();
+		this.stockId = stockId;
+		this.stockName = stockName;
+		this.stockDescription = stockDescription;
+		this.stockQuantity = stockQuantity;
+		this.startingPrice = startingPrice;
+		this.endingPrice = endingPrice;
+		
+	}
+	
+	
+	
+	public int getStockId() {
+		return stockId;
+	}
+	public void setStockId(int stockId) {
+		this.stockId = stockId;
+	}
+	public String getStockName() {
+		return stockName;
+	}
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
+	}
+	public String getStockDescription() {
+		return stockDescription;
+	}
+	public void setStockDescription(String stockDescription) {
+		this.stockDescription = stockDescription;
+	}
+	public int getStockQuantity() {
+		return stockQuantity;
+	}
+	public void setStockQuantity(int stockQuantity) {
+		this.stockQuantity = stockQuantity;
+	}
+	public double getStartingPrice() {
+		return startingPrice;
+	}
+	public void setStartingPrice(double startingPrice) {
+		this.startingPrice = startingPrice;
+	}
+	public double getEndingPrice() {
+		return endingPrice;
+	}
+	public void setEndingPrice(double endingPrice) {
+		this.endingPrice = endingPrice;
+	}
+	
+	
+
+}
+</code></pre></div>
+<div id="result">
+<p>
+This is just a simple Java Bean</p>
+</div><p></p>
+
+
+<p></p>
+<h2>Service Class</h2>
+<div style="border: 1px solid black;"><pre class="prettyprint"><code class="language-java">
+
+package com.willcode4coffee.springjms.producer;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.willcode4coffee.springjms.dto.Stock;
+
+
+
+@Service("stockorder")
+public class StockOrder {
+	
+	@Autowired
+	private StockSender stocksender;
+	
+	  public void setOrderSender(StockSender stocksender){
+	        this.stocksender = stocksender;
+	    }
+	
+	
+	  public void sendStockInfo(int stockId, String stockName, String stockDescription,
+				int stockQuantity, double startingPrice,double endPrice)
+	    {
+	        Stock stock = new Stock(stockId, stockName, stockDescription,
+	    			stockQuantity, startingPrice, endPrice
+	    			);
+	       
+	        stocksender.sendStockInfo(stock);
+	    }
+	}
+	
+	
+	
+
+
+</code></pre></div>
+<div id="result">
+<p>
+@Service
+This class is a part of  Service Layer. Annotating the class with @ service makes it a service class. All your Business logic will be in Service classes.
+<br></br>
+
+@AutoWired
+ Spring auto wires other beans into your classes using @Autowired annotation. Here we AutoWire StockSender class into the StockOrder class.
+<br></br>
+
+sendStockInfo method 
+<br></br> This is the method that does the actual sending of the stock to the Queue. It inturn calls the Stocksender.send method. 
+
+
+</p>
+</div><p></p>
+
+
+ <p></p>
+<h2>Service Class</h2>
+<div style="border: 1px solid black;"><pre class="prettyprint"><code class="language-java">
+
+package com.willcode4coffee.springjms.producer;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.willcode4coffee.springjms.dto.Stock;
+
+
+
+@Service("stockorder")
+public class StockOrder {
+	
+	@Autowired
+	private StockSender stocksender;
+	
+	  public void setOrderSender(StockSender stocksender){
+	        this.stocksender = stocksender;
+	    }
+	
+	
+	  public void sendStockInfo(int stockId, String stockName, String stockDescription,
+				int stockQuantity, double startingPrice,double endPrice)
+	    {
+	        Stock stock = new Stock(stockId, stockName, stockDescription,
+	    			stockQuantity, startingPrice, endPrice
+	    			);
+	       
+	        stocksender.sendStockInfo(stock);
+	    }
+	}
+	
+	
+	
+
+
+</code></pre></div>
+<div id="result">
+<p>
+@Service
+This class is a part of  Service Layer. Annotating the class with @ service makes it a service class. All your Business logic will be in Service classes.
+<br></br>
+
+@AutoWired
+ Spring auto wires other beans into your classes using @Autowired annotation. Here we AutoWire StockSender class into the StockOrder class.
+<br></br>
+
+sendStockInfo method 
+<br></br> This is the method that does the actual sending of the stock to the Queue. It inturn calls the Stocksender.send method. 
+
+
+</p>
+</div><p></p>
+
+
+<p></p>
+<h2>Business Layer  Class</h2>
+<div style="border: 1px solid black;"><pre class="prettyprint"><code class="language-java">
+
+package com.willcode4coffee.springjms.producer;
+
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Message;
+import javax.jms.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+import com.willcode4coffee.springjms.dto.Stock;
+
+
+
+public class StockSender {
+
+	
+	@Autowired
+    private JmsTemplate jmsTemplate;
+	
+		
+		public void sendStockInfo(final Stock stockinfo){
+	        jmsTemplate.send(
+	        new MessageCreator() {
+	          public Message createMessage(Session session) throws JMSException {
+	               MapMessage mapMessage = session.createMapMessage();
+	               mapMessage.setInt("stockId", stockinfo.getStockId());
+	               mapMessage.setString("stockName", stockinfo.getStockName());
+	               mapMessage.setString("stockDescription", stockinfo.getStockDescription());
+	               mapMessage.setDouble("startingprice", stockinfo.getStartingPrice());
+	               mapMessage.setDouble("endingprice", stockinfo.getEndingPrice());
+	               mapMessage.setInt("StockQuantity", stockinfo.getStockQuantity());
+	               return mapMessage;
+	          }
+	        }
+	        );
+	        System.out.println("Information sent - for Stock Name: "+ stockinfo.getStockName());
+	    }
+	
+		
+	}
+	
+	
+
+
+</code></pre></div>
+<div id="result">
+<p>
+
+@Autowired
+    private JmsTemplate jmsTemplate;
+<br></br>You just autoWired the Jms Template ( We will define it in the Spring-context file). 
+
+sendStockInfo - method used a jmsTemplate.send(..) to send the message on the Queue. 
+</p>
+</div><p></p>
+
+
+
+ <p></p>
+<h2>Spring Maven File</h2>
+<div style="border: 1px solid black;"><pre class="prettyprint">
+<code class="language-java">
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+	&lt;groupId&gt;com.willcode4coffee.springjms&lt;/groupId&gt;
+	&lt;artifactId&gt;springjms&lt;/artifactId&gt;
+	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+&lt;properties&gt;
+		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+		&lt;spring-framework.version&gt;4.2.0.RELEASE&lt;/spring-framework.version&gt;
+		&lt;activemq.version&gt;5.10.0&lt;/activemq.version&gt;
+	&lt;/properties&gt;
+
+	&lt;dependencies&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;junit&lt;/groupId&gt;
+			&lt;artifactId&gt;junit&lt;/artifactId&gt;
+			&lt;version&gt;3.8.1&lt;/version&gt;
+			&lt;scope&gt;test&lt;/scope&gt;
+		&lt;/dependency&gt;
+
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+			&lt;version&gt;${spring-framework.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-jms&lt;/artifactId&gt;
+			&lt;version&gt;4.2.0.RELEASE&lt;/version&gt;
+		&lt;/dependency&gt;
+
+
+		&lt;!-- Load ActiveMQ Files --&gt;
+
+		&lt;!-- ActiveMQ Artifacts --&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;
+			&lt;artifactId&gt;activemq-all&lt;/artifactId&gt;
+			&lt;version&gt;${activemq.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+
+	&lt;/dependencies&gt;
+	&lt;!-- Use JDK 1.7+ --&gt;
+	&lt;build&gt;
+		&lt;plugins&gt;
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+				&lt;version&gt;2.5.1&lt;/version&gt;
+				&lt;configuration&gt;
+					&lt;source&gt;1.7&lt;/source&gt;
+					&lt;target&gt;1.7&lt;/target&gt;
+				&lt;/configuration&gt;
+			&lt;/plugin&gt;
+		&lt;/plugins&gt;
+	&lt;/build&gt;
+
+&lt;/project&gt;</code></pre></div>
+<div id="result">
+<p>
+The version of spring we use is 4.01 <br></br>
+ Spring JMS 4.2.0 <br></br> And a active MQ version 5.0.</p>
+</div><p></p>
+
+
+<div class="line-separator"></div>
+<h2>start Active MQ</h2>
+<p></p><div id="imagesnap">
+<p:graphicImage library="images/spring/jms"        name="startactivemq.png"/>
+</div>
+<div class="line-separator"></div>
+
+
+
+<div class="line-separator"></div>
+<h2>Check Active MQ Admin URL</h2>
+<p></p>
+<p></p><div id="imagesnap">
+<p:graphicImage library="images/spring/jms"  id="myimage" name="activemqadminurl.png" />
+</div>
+<div class="line-separator"></div>
+
+
+
+<div class="line-separator"></div>
+<h2>Create a Queue on Active MQ Admin URL</h2>
+<p></p>
+<p></p><div id="imagesnap">
+<p:graphicImage library="images/spring/jms"        name="createqueue.png"/>
+</div>
+<div class="line-separator"></div>
+
+
+
+<div class="line-separator"></div>
+<h2>Directory Structure of the Project</h2>
+<p></p>
+<p></p><div id="imagesnap">
+<p:graphicImage library="images/spring/jms"        name="directorystructure.png"/>
+</div>
+<div class="line-separator"></div>
+<p></p>
+
+<div class="line-separator"></div>
+<h2>Check the message on Queue</h2>
+<p></p>
+<p></p><div id="imagesnap">
+<p:graphicImage library="images/spring/jms" id="myimage2"  name="jmsmessageonqueue.png"/>
+</div>
+<div class="line-separator"></div>
+
+
+<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+
+</body>
+
+</html>
+
+

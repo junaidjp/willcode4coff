@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputScript library="js" name="comments-data.js" />
+		<h:outputStylesheet name="jquery-comments.css" library="css" />
+		<h:outputStylesheet name="font-awesome.min.css" library="css" />
+		<h:outputScript library="js" name="jquery-comments.js" />
+
+
+<!-- 
+
+ var commentsArray = [{	
+	            id: 1,
+	            created: '2015-10-01',
+	            content: 'Lorem ipsum dolort sit amet',
+	            fullname: 'Simon Powell',
+	            profile_picture_url: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
+	            upvote_count: 2,
+	            user_has_upvoted: false
+	        }];
+
+
+ -->		
+<script type="text/javascript">
+
+$ = jQuery;
+$(document).ready(function() {
+alert('jpasha');
+$('#comments-container').comments({
+    profilePictureURL: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
+    getComments: function(success, error) {
+        var commentsArray = [{
+            id: 1,
+            created: '2015-10-01',
+            content: 'Lorem ipsum dolort sit amet',
+            fullname: 'Simon Powell',
+            profile_picture_url: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
+            upvote_count: 2,
+            user_has_upvoted: false
+        }];
+        success(commentsArray);
+    }
+});
+	
+});
+
+</script>
+
+</h:head>
+	 
+
+
+	<body onload="prettyPrint()">
+ 	<h2>Spring Core Class</h2>
+		<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+
+package com.junaid.training.spring;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class SimpleDependancyInjectionExplained {
+
+	public static void main(String[] args) {
+		ApplicationContext context =
+		new ClassPathXmlApplicationContext("applicationContext.xml");
+		SimpleDependancyInjection sdInJPojo = (SimpleDependancyInjection) context.getBean("SimpleDependancyInjection");
+		
+		System.out.println("The name of the student is "+sdInJPojo.getYourName());
+		
+		System.out.println("Currently he/She is"+sdInJPojo.getCurrentWork());
+		
+		System.out.println("And this is the profile" +sdInJPojo.getYourSpecialization().get("languages"));
+		System.out.println(sdInJPojo.getYourSpecialization().get("web"));
+	    System.out.println(sdInJPojo.getAge());
+	   
+	   
+	    
+	    System.out.println(sdInJPojo.getAddress().get("sinanKey").getCity());
+	    System.out.println(sdInJPojo.getAddress().get("sinanKey").getPhones().get(0).getPhonenumber());
+		
+		}
+	
+}
+
+</code>
+</pre>
+		</div>
+
+
+
+		<div id="list3">
+			<ul>
+				<li>The Framework calls your code, not the reverse ( Inversion
+					of Control).</li>
+				<li>The container injects dependencies into object instances
+					using Java methods</li>
+				<li>Configuration values are pushed into objects.</li>
+			</ul>
+		</div>
+
+
+
+		<h2>What is BeanFactory ?</h2>
+
+		<div id="result">
+
+			<p>
+				BeanFactory serves you Beans , Principally Spring is a Bean
+				management Framework. How you load the Beans , what is injected into
+				the beans forms most of your application development. <br></br>
+				There are different ways of loading the Beans from the container (
+				Spring Container). Bean Factory is one among them. Application
+				context is the other. Unless otherwise required to do so. We should
+				also use Applicationcontext to load the beans. As per Spring
+				Guidelines.
+
+			</p>
+		</div>
+
+
+		<h2>What is the difference between BeanFactory and
+			ApplicationContext ?</h2>
+
+		<div id="result">
+			<p>
+				Spring sets properties and resolves dependencies as late as
+				possible, when the bean is actually created. <br></br>That means
+				that even if the Bean had a invalid setter property.The application
+				will complete deployment and throw an exception at run time when the
+				actual bean was called. <br></br>To counter that limitation we use
+				Application Context. Application Context pre-instantiates all Beans.
+			</p>
+		</div>
+
+
+
+
+		<h2>Application Context File</h2>
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+<code class="language-java">
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"&gt;
+
+	&lt;bean id="SimpleDependancyInjection" class="com.junaid.training.spring.SimpleDependancyInjection"&gt;
+
+		&lt;property name="currentWork" value="Getting Trained in Java" /&gt;
+
+		&lt;property name="yourName" value="Krishna Veni"&gt;&lt;/property&gt;
+
+
+		&lt;property name="age" value="25"&gt;&lt;/property&gt;
+
+		&lt;property name="yourSpecialization"&gt;
+			&lt;map&gt;
+				&lt;entry key="languages"&gt;
+					&lt;value&gt;C,C++,Java&lt;/value&gt;
+				&lt;/entry&gt;
+
+				&lt;entry key="web"&gt;
+					&lt;value&gt;HTML,Servlet,JSP,JSTL,JQUERY,AJAX&lt;/value&gt;
+				&lt;/entry&gt;
+
+				&lt;entry key="enterprise"&gt;
+					&lt;value&gt;EJB,Spring,WEBSERVICES&lt;/value&gt;
+				&lt;/entry&gt;
+
+				&lt;entry key="frameworks"&gt;
+					&lt;value&gt;Struts,Spring,SOA&lt;/value&gt;
+				&lt;/entry&gt;
+
+			&lt;/map&gt;
+		&lt;/property&gt;
+
+
+		&lt;property name="address"&gt;
+			&lt;map&gt;
+				&lt;entry key="sinanKey"&gt;
+		    
+					&lt;ref bean="address" /&gt;
+
+				&lt;/entry&gt;
+
+			&lt;/map&gt;
+		&lt;/property&gt;
+&lt;/bean&gt;
+		
+</code>
+</pre>
+
+		</div>
+
+		<div id="result">
+			<h2>SimpleDependancyInjection is a Simple POJO/Java Bean</h2>
+			<p></p>
+		</div>
+
+		<div style="border: 1px solid black;">
+			<pre class="prettyprint">
+<code class="language-java">
+
+package com.junaid.training.spring;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class SimpleDependancyInjection {
+	
+	private String currentWork;
+	private String yourName;
+	private HashMap&lt;String,String&gt; yourSpecialization;
+	
+	
+	private HashMap&lt;String,Address&gt; address;
+	// Setter and getter methods stripped	
+
+	
+</code>
+</pre>
+
+		</div>
+
+
+
+
+		<div id="result">
+
+			<p>
+				In the application Context above, We have set String values for
+				currentwork,yourname.Then we set yourSpecialization which
+				is a Map similarly we also set address which accepts a HashMap of
+				String and Address Object.
+			</p>
+		</div>
+
+		<div id="result">
+			<p>Address is also a Java Bean.</p>
+		</div>
+
+
+
+
+
+
+		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+			draggable="false" closable="false">
+			<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+		</p:dialog>
+
+		<h:form>
+
+	<h:panelGrid columns="2" cellpadding="5">
+				<p:commandButton value="Download Source" ajax="false"
+					action="#{fileBean.downloadAction(springcore)}">
+					<f:param name="filename" value="springcore" />
+					<p:fileDownload value="#{fileBean.downloadFile}" />
+				</p:commandButton>
+			</h:panelGrid>
+
+
+		</h:form>
+		<!-- 
+		
+		
+						
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:commandButton value="Download Source" ajax="false"
+					actionListener="#{fileBean.downloadAction(arraylist)}">
+					<f:setPropertyActionListener value="arraylist" target="#{fileBean.id}" /> 
+					<p:fileDownload value="#{fileBean.downloadFile}" />
+				</p:commandButton>
+			</h:panelGrid>
+		
+		
+<h:form>
+  <h:panelGrid columns="2" cellpadding="5">
+            <h:outputText value="Download and Monitor" />
+            <p:panel header="With Monitoring">
+                <h:commandLink onclick="PrimeFaces.monitorDownload(onDownloadStart,onDownloadStop)">
+                  <p:graphicImage library="images" name="fileDownload.png" />
+                   <p:fileDownload value="#{fileBean.userPic}" />
+                </h:commandLink>
+            </p:panel>
+
+        </h:panelGrid>
+
+</h:form>
+
+<ui:include src="/template/code4coffee/common/feedbackcontent.xhtml"></ui:include>
+
+
+
+
+
+
+		
+
+
+	<div id="live-preview-form" class="lp-block">
+	<p>
+		<strong>Your Name:</strong><br />
+		<input type="text" name="name" id="name" value="" class="input" /><br /><br />
+		<strong>Your Email:</strong><br />
+		<input type="text" name="email" id="email" value="" class="input" /><br /><br />
+		<strong>Your Website:</strong><br />
+		<input type="text" name="website" id="website" value="" class="input" /><br /><br />
+		<strong>Your Comment:</strong><br />
+		<textarea name="comment" id="comment" class="input" rows="10"></textarea>
+	</p>
+</div>
+
+<div id="live-preview-display" class="lp-block">
+	<div id="lp-avatar"></div>
+	<div id="lp-name"></div>
+	<div id="lp-comment"></div>
+</div>
+
+	 -->
+	 
+	 
+	 <div id="comments-container"></div>
+	</body>
+
+</html>
+
+

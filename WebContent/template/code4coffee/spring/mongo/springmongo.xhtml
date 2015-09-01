@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+
+
+
+	<h2>Welcome to Spring MongoDB Integration</h2>
+	
+	
+	<div id="result">
+
+		<p>
+			The Tutorial will walk you through how to Query MongoDB using Spring Framework
+		</p>
+	</div>
+
+	
+	
+	<h2>Things we need </h2>
+	
+	
+<ul type="circle" style="text-align: left;color: brown;">
+ <li><b>Maven </b></li>
+ <li><b>Eclipse </b></li>
+ <li><b>DBWeaver(Optional) </b></li>
+
+ 
+</ul>
+
+
+
+
+	<h2>Steps to achieve our Goal</h2>
+	<ul type="circle" style="text-align: left;color: brown;">
+		<li><b> Step 1 : Create a Eclipse Maven Project </b></li>
+		<li><b>Step 2 : Load all Spring , MongoDB Jars using pom.xml </b></li>
+		<li><b>Step 3 : Write Spring Context file </b></li>
+		<li><b>Step 4 : Write the Java Classes </b></li>
+		<li><b> Step 5 : Execute the program  </b> </li>
+	</ul>
+
+
+
+
+
+<div id="imagesnap">
+<h2>Create a Eclipse Maven Project</h2>
+    <p:graphicImage library="images/jdo/createschema" name="projectcreation1.png" alt="MavenProjectcreations" title="Some of the Jars you need"/>
+	 <p:graphicImage library="images/jdo/createschema" name="projectcreation2.png" alt="MavenProjectcreations" title="Some of the Jars you need"/>
+
+</div>
+
+<h2>Step 3 : Load all Spring , MongoDB Jars using pom.xml</h2>
+  <div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+	&lt;groupId&gt;com.willcode4cofee&lt;/groupId&gt;
+	&lt;artifactId&gt;springmongodb&lt;/artifactId&gt;
+	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+	&lt;packaging&gt;jar&lt;/packaging&gt;
+
+	&lt;name&gt;springmongodb&lt;/name&gt;
+	&lt;url&gt;http://maven.apache.org&lt;/url&gt;
+
+	&lt;properties&gt;
+		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+	&lt;/properties&gt;
+
+	&lt;dependencies&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;junit&lt;/groupId&gt;
+			&lt;artifactId&gt;junit&lt;/artifactId&gt;
+			&lt;version&gt;3.8.1&lt;/version&gt;
+			&lt;scope&gt;test&lt;/scope&gt;
+		&lt;/dependency&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.data&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-data-mongodb&lt;/artifactId&gt;
+			&lt;version&gt;1.7.2.RELEASE&lt;/version&gt;
+		&lt;/dependency&gt;
+
+
+	&lt;/dependencies&gt;
+&lt;/project&gt;
+
+
+
+</code>
+</pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Step 4 : Write the Java Classes</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+package com.willcode4cofee.springmongodb;
+
+import org.springframework.data.annotation.Id; 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+public class Employee {
+	
+	@Id
+	private String employeeId;
+	private String firstname;
+	private String lastname;
+	private String qualifications;
+	private String specialization;
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+	public String getFirstname() {
+		return firstname;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	public String getQualifications() {
+		return qualifications;
+	}
+	public void setQualifications(String qualifications) {
+		this.qualifications = qualifications;
+	}
+	public String getSpecialization() {
+		return specialization;
+	}
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
+	}
+}
+
+</code>
+</pre>
+	</div>
+
+
+
+
+	<div id="result">
+
+		<p>
+		There are two ways to manage the collection name 
+		that is used for operating on the documents.
+		 The default collection name that is used is 
+		 the class name changed to start with a lower-case letter. 
+		 So a com.sample.Employee class would be stored in the "employee" collection. 
+		 You can customize this by providing a different collection name using
+		 the @Document annotation. 
+		 You can also override the collection name 
+		 by providing your own collection name as the
+		last parameter for the selected MongoTemplate method calls.
+	</p>
+	</div>
+	
+
+
+<h2>Step 4 : Write the Java Classes</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+
+package com.willcode4cofee.springmongodb;
+
+public interface EmployeeDao {
+	
+	 
+	public void insert(Employee employee);
+	
+	public void retrieveAllEmployees() ;
+
+}
+</code>
+</pre>
+	</div>
+
+
+
+	<div id="result">
+
+		<p>
+			This is a Interface
+	</p>
+	</div>
+	
+
+
+<h2>Step 4 : Write the Java Classes</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+
+
+package com.willcode4cofee.springmongodb;
+
+import java.util.List;
+
+import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.MongoOperations;
+
+public class EmployeeDaoImpl  implements 	EmployeeDao {
+	
+	private static final String EMPLOYEE_COLLECTION = "employees";
+	static final org.slf4j.Logger logger = LoggerFactory.getLogger(EmployeeDaoImpl.class);
+	private MongoOperations mongoOps;
+	
+	public EmployeeDaoImpl(MongoOperations mongoOps){
+        this.mongoOps=mongoOps;
+    }
+     
+	
+	
+	
+	public void retrieveAllEmployees() { 
+		
+		List&lt;Employee&gt; results = mongoOps.findAll(Employee.class,
+				EMPLOYEE_COLLECTION);
+		System.out.println("Retrieving all Employee Objects");
+		System.out.println("Total amount of Employees: {}" + results.size());
+		for (int index = 0; index &lt; results.size(); index++) {
+			Employee emp = (Employee) results.get(index);
+			System.out.println("*********************");
+			System.out.println(emp.getEmployeeId());
+			System.out.println(emp.getFirstname());
+			System.out.println(emp.getLastname());
+			System.out.println(emp.getQualifications());
+			System.out.println(emp.getSpecialization());
+			System.out.println("*********************");
+		}
+		System.out.println("Results: {}" + results);
+	}
+
+
+/**
+ * Insert a Employee Object
+ */
+	public void insert(Employee employee) {
+		logger.info("Inserting a Employee in MongoDB");
+		mongoOps.insert(employee,EMPLOYEE_COLLECTION);
+		logger.info("Finished Inserting a Employee in MongoDB");
+	}
+	
+
+}
+
+
+</code>
+</pre>
+	</div>
+
+
+
+	<div id="result">
+
+		<p>
+			This is the implementation for the interface.
+	</p>
+	</div>
+	
+
+
+<h2>Step 4 : Write the Java Classes</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+
+package com.willcode4cofee.springmongodb;
+
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MongoDBHandlerImplementation {
+
+	public static void main( String[] args ) {
+		
+		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("mongo-context.xml"); 
+		EmployeeDao employeeDao = context.getBean("employeeDao",EmployeeDao.class);
+		Employee employee = new Employee();
+		employee.setEmployeeId("2");
+		employee.setFirstname("Howard");
+		employee.setLastname("Reddy");
+		employee.setQualifications("Masters Science");
+		employee.setSpecialization("Senior Programmer");
+		employeeDao.insert(employee);
+		employeeDao.retrieveAllEmployees();
+		context.close();
+		}
+}
+
+</code>
+</pre>
+	</div>
+
+
+
+	<div id="result">
+
+		<p>
+			We load the Mongo-context file and then load the EmployeeDao Bean Which already has a 
+			MongoOperations injected inside it.We use the MongoOperations to query the MongoDB.
+	</p>
+	</div>
+	
+
+
+
+<h2>Step 5 : Define the Spring Context file</h2>
+  <div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd"&gt;
+
+	&lt;!-- Scan components for annotations within the configured package --&gt;
+
+
+	&lt;bean id="employeeDao" class="com.willcode4cofee.springmongodb.EmployeeDaoImpl"&gt;
+		&lt;constructor-arg name="mongoOps" ref="mongoTemplate" /&gt;
+	&lt;/bean&gt;
+
+
+	&lt;mongo:mongo id="mongo" host="localhost" port="27017" /&gt;
+
+	&lt;bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"&gt;
+		&lt;constructor-arg ref="mongo" /&gt;
+		&lt;constructor-arg value="employees" /&gt;
+	&lt;/bean&gt;
+
+	&lt;mongo:repositories base-package="com.willcode4cofee.springmongodb"
+		mongo-template-ref="mongoTemplate" /&gt;
+&lt;/beans&gt;
+
+
+
+
+</code>
+</pre>
+
+	</div>
+
+
+
+
+	<div id="result">
+
+		<p>
+			This file is inside the resources folder in the project.
+	</p>
+	</div>
+	
+	
+<div id="imagesnap">
+<h2>Project Structure</h2>
+    <p:graphicImage library="images/spring/mongodb" name="projectstructure.png" alt="create a schema"/>
+</div>
+	
+	
+<div id="imagesnap">
+<h2>DbWeaver SnapShot</h2>
+    <p:graphicImage library="images/spring/mongodb" name="dbweaver.png" alt="create a schema"/>
+</div>
+	
+	
+<div id="imagesnap">
+<h2>DbWeaver SnapShot</h2>
+    <p:graphicImage library="images/spring/mongodb" name="dbweaver2.png" alt="create a schema"/>
+</div>
+
+	
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+		draggable="false" closable="false">
+		<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+	</p:dialog>
+
+	<h:form>
+
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:commandButton value="Download Source" ajax="false"
+				action="#{fileBean.downloadAction(springmongodb)}">
+				<f:param name="filename" value="springmongodb" />
+				<p:fileDownload value="#{fileBean.downloadFile}" />
+			</p:commandButton>
+		</h:panelGrid>
+
+
+	</h:form>
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+
+
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+ <h:head>
+		<h:outputStylesheet name="style.css" library="css" />
+			
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<h:outputScript library="js" name="jquery-ui.js" />
+		<h:outputScript library="js" name="jquery-1.10.2.js" />
+		<h:outputScript library="js" name="prettify.js" />
+
+
+
+<script type="text/javascript">var $ = jQuery.noConflict(true);</script>
+<title>WillCode4Coffee</title>
+</h:head>
+
+<h:body>
+
+ <p:panel id="programmersection" header="This is a Dynamic Page Creator" style="margin-bottom:10px;">
+
+	
+</p:panel>
+
+<h:form id="formtopic">
+	 <p:panel id="topicNamepanel" header="Name of the Topic" style="margin-bottom:10px;">
+		 <p:messages id="messages" />
+        <p:panelGrid style="margin-top:20px">
+		
+		<h3 style="margin-top: 0">Topic Name</h3>
+		<p:inputText id="topicMessage" style="width:10px;height:20px;" value="#{pageCreateView.topicName}" />
+		</p:panelGrid>
+	
+	<p:toolbar>
+	 <f:facet name="left">
+		<p:commandButton value="submit"
+			actionListener="#{pageCreateView.submitTopicname}" />
+	</f:facet>
+	
+	 <f:facet name="right">
+		<p:commandButton value="Reset" style="margin-right:20px;" >
+                <p:ajax update="topicNamepanel" resetValues="true" />
+            </p:commandButton>
+	</f:facet>
+	</p:toolbar>
+</p:panel>
+	</h:form>
+
+
+
+
+
+
+
+
+
+	<h:form id="formheader">
+	 <p:panel id="intropanel" header="Introduction Section" style="margin-bottom:10px;">
+		 <p:messages id="messages" />
+        <p:panelGrid style="margin-top:20px">
+		
+		<h3 style="margin-top: 0">Welcome Message</h3>
+		<p:inputText id="welcomemessage"
+			value="#{pageCreateView.welcomemessage}" />
+		
+		
+		
+		<h3 style="margin-top: 0">Introduction</h3>
+		<p:inputTextarea id="introduction" rows="10" cols="50" value="#{pageCreateView.introduction}" />
+		
+
+
+	
+		<h3 style="margin-top: 0">Things We need</h3>
+		<p:selectManyCheckbox id="grid"
+			value="#{pageCreateView.selectedtechnologies}" layout="grid"
+			columns="3">
+			<f:selectItems value="#{pageCreateView.technologies}"
+				var="technology" itemLabel="#{technology}" itemValue="#{technology}" />
+		</p:selectManyCheckbox>
+		
+	</p:panelGrid>
+	
+	<p:toolbar>
+	 <f:facet name="left">
+		<p:commandButton value="submit"
+			actionListener="#{pageCreateView.submitheadersection}" />
+	</f:facet>
+	
+	 <f:facet name="right">
+		<p:commandButton value="Reset" style="margin-right:20px;" >
+                <p:ajax update="intropanel" resetValues="true" />
+            </p:commandButton>
+	</f:facet>
+	</p:toolbar>
+</p:panel>
+	</h:form>
+
+
+
+<h:form id="formsteps">
+	 <p:panel id="stepspanel" header="Define Steps" style="margin-bottom:10px;">
+		 <p:messages id="messages" />
+        <p:panelGrid style="margin-top:20px">
+		
+		<h3 style="margin-top: 0">Define Steps</h3>
+		<p:inputTextarea id="Steps" value="#{pageCreateView.stepsforthisprogram}" />
+		</p:panelGrid>
+	
+	<p:toolbar>
+	 <f:facet name="left">
+		<p:commandButton value="submit"
+			actionListener="#{pageCreateView.submitStepsForthisProgram}" />
+	</f:facet>
+	
+	 <f:facet name="right">
+		<p:commandButton value="Reset" style="margin-right:20px;" >
+                <p:ajax update="stepspanel" resetValues="true" />
+            </p:commandButton>
+	</f:facet>
+	</p:toolbar>
+</p:panel>
+	</h:form>
+
+
+
+
+<div id="programblock">
+
+	<h:form>
+	 <p:panel id="programpanel" header="Program Section" style="margin-bottom:10px;">
+	  <p:messages id="messages" />
+	  
+	   <p:panelGrid style="margin-top:20px">
+		
+		<h3 style="margin-top: 0">Your Headline</h3>
+		<p:inputText id="headline" value="#{pageCreateView.headline}" />
+	
+		<p>Insert your program code here</p>
+		<h:inputTextarea id="comment" rows="10" cols="50"
+			value="#{pageCreateView.programtext}" />
+		<br />
+		<p>Insert your explanation Section here</p>
+		<h:inputTextarea id="notes" rows="6" cols="50"
+			value="#{pageCreateView.notes}" />
+		<br/>
+		
+		</p:panelGrid>
+		
+		<p:toolbar>
+		 <f:facet name="left">
+		<p:commandButton value="submit" actionListener="#{pageCreateView.submitProgram}" update="comment" />
+		</f:facet>
+		
+		
+		 <f:facet name="right">
+		 <p:commandButton value="Reset" style="margin-right:20px;" >
+                <p:ajax update="programpanel" resetValues="true" />
+            </p:commandButton>
+		 </f:facet>
+		</p:toolbar>
+	</p:panel>
+	
+	
+
+	</h:form>
+	
+
+</div>
+
+
+
+
+
+
+
+	<div id="imagesblock">
+
+		<h:form>
+			<p:panel id="imagespanel" header="Images Section"
+				style="margin-bottom:10px;">
+				<p:messages id="messages" />
+
+<p:panelGrid style="margin-top:20px">
+		<h3 style="margin-top: 0">Topic Name</h3>
+		<p:inputText id="topicMessage" style="width:10px;height:20px;" value="#{pageCreateView.topicName}" />
+		</p:panelGrid>
+		
+		
+		<p:panelGrid style="margin-top:20px">
+		<h3 style="margin-top: 0">Directory name</h3>
+		<p:inputText id="directoryname" style="width:10px;height:20px;" value="#{pageCreateView.directoryname}" />
+		</p:panelGrid>
+
+				<p:panelGrid style="margin-top:20px">
+
+					<h3 style="margin-top: 0">Images  Headline</h3>
+					
+		
+	
+					
+					<p:inputText id="headline1" value="#{pageCreateView.imageheadline}" />
+
+					<p>Image placeHolder </p>
+					<h:inputText id="imageone"  style="width: 100px;height :10px;" value="#{pageCreateView.imagename}" />
+					<br/>
+				</p:panelGrid>
+
+				<p:toolbar>
+					<f:facet name="left">
+					
+					<p:commandButton value="submit" actionListener="#{pageCreateView.submitImagesBlock}" />
+						
+					</f:facet>
+					
+					<f:facet name="right">
+						<p:commandButton value="Reset" style="margin-right:20px;">
+							<p:ajax update="imagespanel" resetValues="true" />
+						</p:commandButton>
+					</f:facet>
+				</p:toolbar>
+			</p:panel>
+		</h:form>
+	</div>
+
+
+
+</h:body>
+
+</html>

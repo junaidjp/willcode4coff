@@ -39,7 +39,7 @@ public class HtmlManipulator {
 	
 	
 	
-	static String htmlspecialchars_encode_ENT_NOQUOTES(String program) {
+	public static String htmlspecialchars_encode_ENT_NOQUOTES(String program) {
 		program = program.replaceAll("<","&lt;");
 		program = program.replaceAll(">","&gt;");
 		return program;

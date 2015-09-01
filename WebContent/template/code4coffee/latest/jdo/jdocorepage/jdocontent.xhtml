@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+		<div id="contenttext">
+			<div style="padding: 10px">
+				<span class="titletext"></span>
+			</div>
+			<div class="bodytext" style="padding: 12px;" align="justify">
+				<strong> Spring Technologies </strong><br />
+
+
+				<div id="tabs">
+					<ul>
+						<li>
+						
+							<h:form>
+								<p:commandLink id="JDO-Concepts"
+ 									action="#{navigationController.showjdoconcepts}" ajax="false" 
+									value="Jdo-concepts">
+									<h:outputText value="Jdo-concepts" />
+									</p:commandLink>
+								
+							</h:form>
+							<br></br>
+							</li>
+							
+							
+								
+							
+							<li>
+							<h:form>
+								<p:commandLink id="JDO-CreateSchema"
+									action="#{navigationController.showjdocreateschema}" ajax="false" value="Jdo-createschema">
+									<h:outputText value="Jdo-createschema" />
+								</p:commandLink>
+
+							</h:form>
+							<br></br>
+							</li>
+							
+						<li>
+							<h:form>
+								<p:commandLink id="JDO-writeDB"
+									action="#{navigationController.showjdowritedb}" ajax="false" value="JDO-writeDB"  icon="ui-icon-close">
+									<h:outputText value="JDO-writeDB" />
+								</p:commandLink>
+
+							</h:form>
+							<br></br>
+						</li>	
+							
+							
+								
+							<li>
+							<h:form>
+								<p:commandLink id="JDO-ReadDB"
+									action="#{navigationController.showjdoreaddb}" ajax="false" value="JDO-ReadDB">
+									<h:outputText value="JDO-ReadSDB" />
+								</p:commandLink>
+
+							</h:form>
+							<br></br>
+							</li>
+							
+							
+							<!-- 
+							<li>
+							<h:form>
+								<p:commandLink id="JDO-MongoDB"
+									action="#{navigationController.showjdomongodb}" ajax="false" value="JDO-MongoDB">
+									<h:outputText value="JDO-MongoDB" />
+								</p:commandLink>
+
+							</h:form>
+							<br></br>
+							</li>
+							 -->
+							
+							</ul>
+				</div>
+				<br/>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>
+
+

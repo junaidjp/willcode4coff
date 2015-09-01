@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+
+
+
+	<h2>Welcome to MongoDB example.</h2>
+	
+	
+	<div id="result">
+
+		<p>
+			The Tutorial will walk you through how to create a schema in MongoDB using Json File and how to Query 
+			DB using Java Program.
+		</p>
+	</div>
+
+	
+	
+	<h2>Things we need </h2>
+	
+	
+<ul type="circle">
+ <li>Maven</li>
+ <li>Eclipse</li>
+ <li>DBWeaver (OpenSource)</li>
+
+ 
+</ul>
+
+
+
+
+	<h2>Steps to achieve our Goal</h2>
+	<ul type="circle">
+		<li>Step 1 : Create a Eclipse Maven Project</li>
+		<li>Step 2 : Write a JSON with Data</li>
+		<li>Step 2 : Import a Dataset in MongDB</li>
+		<li>Step 3 : Load all MongoDB  Jars using Mavens pom.xml</li>
+		<li>Step 4 : Query the MongoDB using Java Program<</li>
+	</ul>
+
+
+
+
+
+<div id="imagesnap">
+<h2>Create a Eclipse Maven Project</h2>
+    <p:graphicImage library="images/jdo/createschema" name="projectcreation1.png" alt="MavenProjectcreations" title="Some of the Jars you need"/>
+	 <p:graphicImage library="images/jdo/createschema" name="projectcreation2.png" alt="MavenProjectcreations" title="Some of the Jars you need"/>
+
+</div>
+
+
+
+<div id="imagesnap">
+<h2>Step 2 : Import a Dataset in MongDB</h2>
+    <p:graphicImage library="images/monggodb/createschema" name="mongodbcommandtoimport.jpg" alt="create a schema"/>
+	
+
+</div>
+
+
+
+dbweaverimage.jpg
+
+
+<h2>Step 2 : Write a JSON with Data</h2>
+  <div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+{
+    "id": "01",
+    "firstname": "Howard",
+    "lastname": "points",
+    "qualification": "MastersComputers",
+    "Specialization": "Java/J2ee"
+}
+{
+    "id": "02",
+    "firstname": "Junaid",
+    "lastname": "pash",
+    "qualification": "MastersComputers",
+    "Specialization": "Java/J2ee"
+}
+{
+    "id": "03",
+    "firstname": "sai",
+    "lastname": "Nadella",
+    "qualification": "MastersComputers",
+    "Specialization": "Java/J2ee"
+}
+{
+    "id": "04",
+    "firstname": "Ameer",
+    "lastname": "Khoja",
+    "qualification": "MastersComputers",
+    "Specialization": "QA lead"
+}
+{
+    "id": "05",
+    "firstname": "Sharon",
+    "lastname": "Yeary",
+    "qualification": "Bachelors",
+    "Specialization": "Sabre SDS"
+}
+</code>
+</pre>
+</div>
+
+
+
+
+
+
+
+<h2>Step 3 : Load all Mongodb  Jars using Mavens pom.xml</h2>
+  <div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+	&lt;groupId&gt;com.willcode4cofee&lt;/groupId&gt;
+	&lt;artifactId&gt;mongoDb&lt;/artifactId&gt;
+	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+	&lt;packaging&gt;jar&lt;/packaging&gt;
+
+	&lt;name&gt;mongoDb&lt;/name&gt;
+	&lt;url&gt;http://maven.apache.org&lt;/url&gt;
+
+	&lt;properties&gt;
+		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+	&lt;/properties&gt;
+
+	&lt;dependencies&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;junit&lt;/groupId&gt;
+			&lt;artifactId&gt;junit&lt;/artifactId&gt;
+			&lt;version&gt;3.8.1&lt;/version&gt;
+			&lt;scope&gt;test&lt;/scope&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.mongodb&lt;/groupId&gt;
+			&lt;artifactId&gt;mongodb-driver&lt;/artifactId&gt;
+			&lt;version&gt;3.0.2&lt;/version&gt;
+		&lt;/dependency&gt;
+	
+		&lt;/dependencies&gt;
+&lt;/project&gt;
+
+
+
+
+</code>
+</pre>
+
+	</div>
+
+
+
+<h2>Step 5 : Query the MongoDB using Java Program</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+	<code class="language-java">
+package com.willcode4cofee.mongoDb;
+
+import org.bson.Document;
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoDatabase;
+
+
+public class MongoDBTest {
+	
+	public static void main(String args[]) { 
+		
+		MongoClient mongoClient = new MongoClient();
+		MongoDatabase db = mongoClient.getDatabase("test");
+		FindIterable&lt;Document&gt; iterable = db.getCollection("employees").find();
+		iterable.forEach(new Block&lt;Document&gt;() {
+		    public void apply(final Document document) {
+		        System.out.println(document);
+		    }
+		});
+			mongoClient.close();
+	}
+
+}
+
+
+
+</code>
+</pre>
+	</div>
+
+	
+	
+	
+	
+	
+<div id="imagesnap">
+<h2>Step 2 : Check in DBWeaver</h2>
+    <p:graphicImage library="images/monggodb" name="dbweaverimage.jpg" alt="create a schema"/>
+	
+
+</div>
+		
+
+	<div id="result">
+
+		<p>DBWeaver is a awesome tool to work with Database.</p>
+		<br></br>If you have not done so yet.I suggest please download it.
+	</div>
+	
+	
+	
+	
+
+
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+		draggable="false" closable="false">
+		<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+	</p:dialog>
+
+	<h:form>
+
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:commandButton value="Download Source" ajax="false"
+				action="#{fileBean.downloadAction(mongodbquery)}">
+				<f:param name="filename" value="mongodbquery" />
+				<p:fileDownload value="#{fileBean.downloadFile}" />
+			</p:commandButton>
+		</h:panelGrid>
+
+
+	</h:form>
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+
+
+
+
+</body>
+
+</html>
+
+

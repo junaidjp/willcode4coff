@@ -155,8 +155,7 @@ public class FileBean implements Serializable {
 
 
 	public StreamedContent getUserPic() {
-		
-		  InputStream stream = this.getClass().
+		 InputStream stream = this.getClass().
 				   getResourceAsStream("sample_report.pdf");
 				    userPic = new DefaultStreamedContent(stream,
 				   "application/pdf", "sample_report.pdf");

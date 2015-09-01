@@ -12,7 +12,19 @@
 
 	</welcome-file-list>
 
-
+ 
+	<servlet>
+    <description></description>
+    <display-name>CommentsServlet</display-name>
+    <servlet-name>CommentsServlet</servlet-name>
+    <servlet-class>com.comments.CommentsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentsServlet</servlet-name>
+    <url-pattern>/getComments</url-pattern>
+    <url-pattern>/getcomments</url-pattern>
+  </servlet-mapping>
+	
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>

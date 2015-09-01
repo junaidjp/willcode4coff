@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+
+
+
+<p></p><h2>Welcome to Spring AOP Tutorial. </h2>
+<div id = "justconcepts">
+<p> </p> Aspect oriented programming refers to a technique of programming around Aspects. 
+<div class="line-separator"></div>
+
+What is a Aspect ? 
+<br></br>
+
+Aspect help us breakdown cross cutting concerns. 
+
+
+<p></p>
+
+What are cross cutting concern ? 
+<br></br>
+Cross cutting concern is any functionality that affects multiple points of an application. 
+logging is a  very good example.Transaction management is another , Security is one more.
+<br></br>
+
+</div>
+
+<div class="line-separator"></div>
+
+<div id = "justconcepts">
+
+Let me provide an example : 
+
+Lets say in a Big Train reservation application there are various modules 
+<p></p>
+1)  Book the Ticket <br></br>
+2)  Validate the credit card <br></br>
+3) process the payment <br></br>
+
+
+</div>
+
+<div class="line-separator"></div>
+<div id = "justconcepts">
+
+Each of these modules has some common Aspects ( Cross Cutting ). 
+Common Aspects for 2 and 3 are securing the PCI Data. 
+<br></br>
+Common Aspects for 1 and 3 are Transaction management. 
+<p></p>
+
+What is Advice ? 
+<br></br>
+Answer : The Job the aspect does is an Advice . 
+<br></br>
+Example : In the above business Logging , Securing the PCI Data and Transaction management are all Advices. (Jobs) 
+<br></br>
+Advice defines  WHAT ( Logging ) the aspect has to do  and WHEN (After a specific business method ). 
+<br></br>
+</div>
+
+<div class="line-separator"></div>
+<div id = "justconcepts">
+<p></p>
+The WHEN part of the  the Advice can be of different Types 
+<br></br>
+1) Before—The advice functionality takes place before the advised method is invoked. 
+<br></br>
+2) After—The advice functionality takes place after the advised method completes.irrespective of the outcome 
+<br></br>
+3) After-returning—The advice functionality takes place after the advised method successfully completes. 
+<br></br>
+4) After-throwing—The advice functionality takes place after the advised method throws an exception. 
+<br></br>
+5) Around—The advice wraps the advised method, providing some functionality before and after the advised method is invoked. 
+<br></br>
+
+</div>
+<div class="line-separator"></div>
+
+<div id = "justconcepts">
+
+What is Join Point ? 
+<br></br>
+A join point is a point in the execution of the application where an aspect can be plugged in. 
+This point could be a  method that is invoked , Or an  exception that is being  thrown. 
+<p></p>
+
+What is a Point cuts  ? <br></br>
+Pointcut are expressions that is matched with join points to determine whether advice needs to be executed or not. <br></br>
+Pointcut uses different kinds of expressions that are matched with the join points 
+and Spring framework uses the AspectJ pointcut expression language.
+
+<p></p>
+What is weaving ?  
+<br></br>
+Weaving is the process of applying aspects to a target object to create a new proxied object. 
+
+
+<p></p>
+
+</div>
+
+
+<div class="line-separator"></div>
+
+
+<div id = "justconcepts">
+Spring AOP Configuration elements : 
+ <p></p>
+&lt;aop:advisor&gt;  : Defines a Spring AOP Advisor  <br></br>
+ 
+&lt;aop:after&gt; : Defines an AOP after advice (regardless of whether the advised method returns successfully). 
+  <br></br>
+&lt;aop:around&gt; Defines an AOP around advice. 
+  <br></br>
+&lt;aop:after-returning&gt; Defines an AOP after-returning advice. 
+ <br></br>
+ 
+&lt;aop:after-throwing&gt; Defines an AOP after-throwing advice. 
+
+  <br></br>
+&lt;aop:aspect&gt; Defines an aspect. 
+
+  <br></br>
+&lt;aop:aspectj-autoproxy&gt; Enables annotation-driven aspects using @AspectJ. 
+
+  <br></br>
+&lt;aop:before&gt; Defines an AOP before advice. 
+ <br></br>
+ 
+&lt;aop:config&gt; The The top-level AOP element. Most &lt;aop:*&gt; elements must be con- tained within &lt;aop:config&gt;. 
+
+  <br></br>
+&lt;aop:declare-parents&gt; Introduces additional interfaces to advised objects that are trans- parently implemented. 
+ <br></br>
+ 
+&lt;aop:pointcut&gt; Defines a pointcut. 
+ <br></br>
+
+
+</div>
+
+
+
+
+<div class="line-separator"></div>
+
+
+Continue to ..
+	<h:form>
+		<p:commandLink id="Spring-Aspect-Examples"
+			action="#{navigationController.showspringaopexample}" ajax="false"
+			value="spring-aopexamples">
+			<h:outputText value="spring-aopexamples" />
+		</p:commandLink>
+
+	</h:form>
+
+<div class="line-separator"></div>
+
+<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+
+</body>
+
+</html>
+
+
