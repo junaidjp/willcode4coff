@@ -200,6 +200,8 @@ font-family: 'Ubuntu', sans-serif;
 #result {
  background-color: #e0ffff;
  text-align : justify;
+ padding-right: 15px;
+ padding-left:15px;
 }
 
 .result li  {

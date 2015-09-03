@@ -14,7 +14,7 @@
 
 <body onload="prettyPrint()">
 
-<p></p><h2>Welcome to Spring_AOP Example</h2>
+<p></p><h2>Welcome to Spring_AOP Example 2</h2>
 <div id="result">
 <h2>Things we need </h2>
 <ul type="circle">
@@ -51,6 +51,8 @@ Each Application booking will require a Account Object. <p></p>
 We will use the Spring AOP features to intercept this BookingReservation method. <br></br>
 These Interceptor will then retrieve the Account Object and check the accounts type.
 And then Set the price based on the Account Type.
+The only difference between the previous tutorial to this is how we will intercept/Hijack the method after the bookingReservation method in invoked. 
+Previousily we Hijacked the method before the bookReservation was invoked. 
 </div>
 
 <div id = "justconcepts">
@@ -276,7 +278,7 @@ public class Account {
 				expression="execution(*
 com.willcode4coffe.springaopsample.ReservationHandler.bookReservation(com.willcode4coffee.springaop.dto.Account))
 and args(account)" /&gt;
-			&lt;aop:before pointcut-ref="getPrice" method="interceptAccountHolderDetails"
+			&lt;aop:after pointcut-ref="getPrice" method="interceptAccountHolderDetails"
 				arg-names="account" /&gt;
 		&lt;/aop:aspect&gt;
 	&lt;/aop:config&gt;
@@ -297,13 +299,16 @@ and args(account)" /&gt;
 <li>The pointcut <b> point in the execution of the application where an aspect can be plugged in</b>is bookingReservation method</li>
 <li>The pointcut reference method is interceptAccountHolderDetails on class <b>reservationintercept </b></li>
 <li>It accepts the argument name of account defined by <b>arg-names="account" </b></li>
-<li> aop:before pointcut-ref <b>The advice functionality takes place before the advised method is invoked</b></li>
+<li> aop:after pointcut<b>The advice functionality takes place after the advised method is invoked</b></li>
 <li>Which means that when a bookingReservation method is called. The interceptor will Hijack the method , Do its processing ( Set the price).</li>
 <li>Once it sets the price it gives the control back to bookReservation method</li>
 </ul><p></p>
 <ul ></ul>
  <br></br>
 </div>
+
+
+<h2>aop:after pointcut : The advice functionality takes place after the advised method is invoked</h2>
 
 <div class="line-separator"></div>
 
@@ -342,6 +347,9 @@ and args(account)" /&gt;
 			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
 			powered by Disqus.</a>
 	</noscript>
+
+
+
 
 </body>
 
