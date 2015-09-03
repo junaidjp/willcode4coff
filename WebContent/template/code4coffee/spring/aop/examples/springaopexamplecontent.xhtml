@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+
+<body onload="prettyPrint()">
+
+<p></p><h2>Welcome to Spring_AOP Example</h2>
+<div id="result">
+<h2>Things we need </h2>
+<ul type="circle">
+<li>Eclipse</li>
+<li>Maven</li>
+<li>Spring</li>
+</ul><p></p>
+</div>
+
+
+
+
+
+	<h2>Steps to achieve our Goal</h2>
+	<div id="result">
+	<ul type="circle">
+		<li>Step 1 : Create a Eclipse Maven Project</li>
+		<li>Step 2 : Load all Spring, AOP dependencies using Mavens pom.xml</li>
+		<li>Step 3 : Write Business Logic Interface and Implementation.</li>
+		<li>Step 4 : Write interceptor interface and implementation</li>
+		<li>Step 5 : Define a Spring context file.</li>
+		<li>Step 6 : Define your aspects , point cuts. </li>
+		<li>Step 7 : Write the  Spring Test case.</li>
+		<li>Step 8 : Execute the Test case , Validate the responses.</li>
+	</ul>
+</div>
+
+
+
+
+<div id = "justconcepts">
+We will write a Application that does booking a reservation. <br></br>
+Each Application booking will require a Account Object. <p></p> 
+We will use the Spring AOP features to intercept this BookingReservation method. <br></br>
+These Interceptor will then retrieve the Account Object and check the accounts type.
+And then Set the price based on the Account Type.
+</div>
+
+<div id = "justconcepts">
+We will first write a Business logic class that will do the Reservation.
+</div>
+
+
+<div class="line-separator"></div>
+
+
+ <p></p>
+<h2>ReservationHandler - Business Layer Interface </h2>
+<div style="border: 1px solid black;"><pre class="prettyprint"><code class="language-java">
+package com.willcode4coffe.springaopsample;
+
+import com.willcode4coffee.springaop.dto.Account;
+
+public interface ReservationHandler {
+	
+	void bookReservation(Account account);
+
+}
+</code></pre></div>
+<div id="result">
+<p>
+This is a interface that books the reservation.</p>
+</div><p></p>
+
+<div class="line-separator"></div>
+
+
+
+<div class="line-separator"></div>
+
+
+
+ <p></p>
+<h2>ReservationHandler - Business Layer Impl</h2>
+<div style="border: 1px solid black;"><pre class="prettyprint"><code class="language-java">
+package com.willcode4coffe.springaopsample;
+
+import com.willcode4coffee.springaop.dto.Account;
+
+public class ReservationHandlerImpl implements ReservationHandler {
+	
+	private Account account;
+	
+	public void bookReservation(Account account) { 
+		this.account = account;
+		
+		
+	}
+	
+  public Account getAccount() { 
+		return account;
+	}
+	
+}</code></pre></div>
+
+
+<div class="line-separator"></div>
+
+<div id="result">
+<p>
+This is a implementation that books the reservation.(It does not do anything for now ) </p>
+</div>
+<p></p>
+
+<div class="line-separator"></div>
+
+<h2>BookingReservationInterceptor</h2>
+<div style="border: 1px solid black;">
+<pre class="prettyprint">
+<code class="language-java">
+
+
+package com.willcode4coffe.springaopsample;
+
+import com.willcode4coffee.springaop.dto.Account;
+
+public interface BookingReservationInterceptor {
+	
+	void interceptAccountHolderDetails(Account account);
+
+	Account getAccountHolderDetails();
+
+}
+</code>
+</pre>
+</div>
+<p></p>
+
+<div class="line-separator"></div>
+
+<div id="result">
+<p>
+This is a Interceptor that will intercept the account object whenever the booking Reservation is called.  </p>
+</div>
+<p></p>
+
+
+	<h2>BookingReservationInterceptor-Implementation</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+package com.willcode4coffe.springaopsample;
+
+import com.willcode4coffee.springaop.dto.Account;
+
+public class BookingReservationInterceptorImpl  implements BookingReservationInterceptor {
+
+	private Account interceptedaccount;
+	
+	public Account getAccountHolderDetails() {
+			return interceptedaccount;
+	}
+
+	/**
+	 * 
+	 */
+	public void interceptAccountHolderDetails(Account account) {
+		this.interceptedaccount = account;
+		if (interceptedaccount.getAccountType().equals("Gold")) {
+			interceptedaccount.setPrice(0);
+		}
+		if (interceptedaccount.getAccountType().equals("Regular")) {
+			interceptedaccount.setPrice(50);
+		}
+	}
+}
+</code>
+</pre>
+</div>
+
+<div class="line-separator"></div>
+
+<h2>The Account Object</h2>
+	<div style="border: 1px solid black;">
+		<pre class="prettyprint">
+<code class="language-java">
+
+package com.willcode4coffee.springaop.dto;
+
+public class Account {
+	
+	private String accountType;
+	
+
+	private String name;
+	
+	private String creditcardnumber; 
+	
+	private int price;
+
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCreditcardnumber() {
+		return creditcardnumber;
+	}
+
+	public void setCreditcardnumber(String creditcardnumber) {
+		this.creditcardnumber = creditcardnumber;
+	}
+
+	
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+	
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+}
+
+</code>
+</pre>
+</div>
+
+<div class="line-separator"></div>
+
+
+
+ <p></p>
+<h2>Spring-AOP Context file</h2>
+<div style="border: 1px solid black;"><pre class="prettyprint"><code class="language-java">
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd "&gt;
+
+	&lt;bean id="bookingReservation"
+		class="com.willcode4coffe.springaopsample.ReservationHandlerImpl" /&gt;
+
+	&lt;bean id="reservationintercept"
+		class="com.willcode4coffe.springaopsample.BookingReservationInterceptorImpl" /&gt;
+
+	&lt;aop:config&gt;
+		&lt;aop:aspect ref="reservationintercept"&gt;
+			&lt;aop:pointcut id="getPrice"
+				expression="execution(*
+com.willcode4coffe.springaopsample.ReservationHandler.bookReservation(com.willcode4coffee.springaop.dto.Account))
+and args(account)" /&gt;
+			&lt;aop:before pointcut-ref="getPrice" method="interceptAccountHolderDetails"
+				arg-names="account" /&gt;
+		&lt;/aop:aspect&gt;
+	&lt;/aop:config&gt;
+
+
+
+&lt;/beans&gt;</code></pre></div>
+
+
+<div class="line-separator"></div>
+
+<div id="result">
+<ul type="circle">
+<li>First we load aspect aop names spaces in the context file.</li>
+<li>Next  we define the bookingReservation bean  and reservationintercept in the Spring context file.</li>
+<li>Next we start writing our aspects</li>
+<li>Our aspect is reservationintercept (which needs to intercept every time bookingReservation is called) </li>
+<li>The pointcut <b> point in the execution of the application where an aspect can be plugged in</b>is bookingReservation method</li>
+<li>The pointcut reference method is interceptAccountHolderDetails on class <b>reservationintercept </b></li>
+<li>It accepts the argument name of account defined by <b>arg-names="account" </b></li>
+<li> aop:before pointcut-ref <b>The advice functionality takes place before the advised method is invoked</b></li>
+<li>Which means that when a bookingReservation method is called. The interceptor will Hijack the method , Do its processing ( Set the price).</li>
+<li>Once it sets the price it gives the control back to bookReservation method</li>
+</ul><p></p>
+<ul ></ul>
+ <br></br>
+</div>
+
+<div class="line-separator"></div>
+
+<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+		draggable="false" closable="false">
+		<p:graphicImage library="images" name="ajaxloadingbar.gif"></p:graphicImage>
+	</p:dialog>
+
+	<h:form>
+
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:commandButton value="Download Source" ajax="false"
+				action="#{fileBean.downloadAction(springjdbc)}">
+				<f:param name="filename" value="springjdbc" />
+				<p:fileDownload value="#{fileBean.downloadFile}" />
+			</p:commandButton>
+		</h:panelGrid>
+
+
+	</h:form>
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'willcode4coffee';
+		(function() {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document
+					.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a
+			href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+			powered by Disqus.</a>
+	</noscript>
+
+
+
+
+</body>
+
+</html>
+
+
