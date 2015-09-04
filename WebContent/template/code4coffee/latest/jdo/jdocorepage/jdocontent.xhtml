@@ -22,7 +22,7 @@
 						
 							<h:form>
 								<p:commandLink id="JDO-Concepts"
- 									action="#{navigationController.showjdoconcepts}" ajax="false" 
+ 									action="#{jdonavigationController.showjdoconcepts}" ajax="false" 
 									value="Jdo-concepts">
 									<h:outputText value="Jdo-concepts" />
 									</p:commandLink>
@@ -37,7 +37,7 @@
 							<li>
 							<h:form>
 								<p:commandLink id="JDO-CreateSchema"
-									action="#{navigationController.showjdocreateschema}" ajax="false" value="Jdo-createschema">
+									action="#{jdonavigationController.showjdocreateschema}" ajax="false" value="Jdo-createschema">
 									<h:outputText value="Jdo-createschema" />
 								</p:commandLink>
 
@@ -48,7 +48,7 @@
 						<li>
 							<h:form>
 								<p:commandLink id="JDO-writeDB"
-									action="#{navigationController.showjdowritedb}" ajax="false" value="JDO-writeDB"  icon="ui-icon-close">
+									action="#{jdonavigationController.showjdowritedb}" ajax="false" value="JDO-writeDB"  icon="ui-icon-close">
 									<h:outputText value="JDO-writeDB" />
 								</p:commandLink>
 
@@ -61,7 +61,7 @@
 							<li>
 							<h:form>
 								<p:commandLink id="JDO-ReadDB"
-									action="#{navigationController.showjdoreaddb}" ajax="false" value="JDO-ReadDB">
+									action="#{jdonavigationController.showjdoreaddb}" ajax="false" value="JDO-ReadDB">
 									<h:outputText value="JDO-ReadSDB" />
 								</p:commandLink>
 
@@ -69,20 +69,7 @@
 							<br></br>
 							</li>
 							
-							
-							<!-- 
-							<li>
-							<h:form>
-								<p:commandLink id="JDO-MongoDB"
-									action="#{navigationController.showjdomongodb}" ajax="false" value="JDO-MongoDB">
-									<h:outputText value="JDO-MongoDB" />
-								</p:commandLink>
-
-							</h:form>
-							<br></br>
-							</li>
-							 -->
-							
+						
 							</ul>
 				</div>
 				<br/>
